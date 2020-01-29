@@ -29,5 +29,17 @@ namespace FinalCapstone.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<FinalCapstone.Models.Client> Clients { get; set; }
+
+        public System.Data.Entity.DbSet<FinalCapstone.Models.ApplicationUser> ApplicationUsers { get; set; }
+
+        public System.Data.Entity.DbSet<FinalCapstone.Models.ClientTherapist> ClientTherapists { get; set; }
+
+        public System.Data.Entity.DbSet<FinalCapstone.Models.MassageTherapist> MassageTherapists { get; set; }
+
+        public System.Data.Entity.DbSet<FinalCapstone.Models.Document> Documents { get; set; }
+
+        public System.Data.Entity.DbSet<FinalCapstone.Models.ClientPref> ClientPrefs { get; set; }
     }
 }

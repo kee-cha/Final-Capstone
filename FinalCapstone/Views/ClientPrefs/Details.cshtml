@@ -1,0 +1,130 @@
+﻿@model FinalCapstone.Models.ClientPref
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ClientPref</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Client.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Client.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HeadPain)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HeadPain)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NeckPain)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NeckPain)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpperBackPain)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpperBackPain)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LowBackPain)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LowBackPain)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ShoulderPain)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShoulderPain)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ArmPain)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ArmPain)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WristHandPain)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WristHandPain)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HipPain)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HipPain)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ThighPain)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ThighPain)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KneeLegPain)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KneeLegPain)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AnkleFootPain)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AnkleFootPain)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TherapistGender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TherapistGender)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TherapistSpecialty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TherapistSpecialty)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

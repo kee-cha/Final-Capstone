@@ -1,0 +1,111 @@
+﻿@model IEnumerable<FinalCapstone.Models.ClientPref>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Client.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HeadPain)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NeckPain)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpperBackPain)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LowBackPain)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ShoulderPain)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ArmPain)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WristHandPain)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HipPain)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ThighPain)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.KneeLegPain)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AnkleFootPain)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TherapistGender)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TherapistSpecialty)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Client.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HeadPain)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NeckPain)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpperBackPain)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LowBackPain)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShoulderPain)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ArmPain)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WristHandPain)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HipPain)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ThighPain)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.KneeLegPain)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AnkleFootPain)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TherapistGender)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TherapistSpecialty)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
