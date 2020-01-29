@@ -39,7 +39,7 @@ namespace FinalCapstone.Controllers
         // GET: MassageTherapists/Create
         public ActionResult Create()
         {
-            ViewBag.ApplicationId = new SelectList(db.ApplicationUsers, "Id", "Email");
+            ViewBag.ApplicationId = new SelectList(db.Users, "Id", "Email");
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace FinalCapstone.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ApplicationId = new SelectList(db.ApplicationUsers, "Id", "Email", massageTherapist.ApplicationId);
+            ViewBag.ApplicationId = new SelectList(db.Users, "Id", "Email", massageTherapist.ApplicationId);
             return View(massageTherapist);
         }
 
@@ -73,7 +73,7 @@ namespace FinalCapstone.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ApplicationId = new SelectList(db.ApplicationUsers, "Id", "Email", massageTherapist.ApplicationId);
+            ViewBag.ApplicationId = new SelectList(db.Users, "Id", "Email", massageTherapist.ApplicationId);
             return View(massageTherapist);
         }
 
@@ -90,7 +90,7 @@ namespace FinalCapstone.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ApplicationId = new SelectList(db.ApplicationUsers, "Id", "Email", massageTherapist.ApplicationId);
+            ViewBag.ApplicationId = new SelectList(db.Users, "Id", "Email", massageTherapist.ApplicationId);
             return View(massageTherapist);
         }
 

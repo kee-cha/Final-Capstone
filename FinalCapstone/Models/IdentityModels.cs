@@ -32,7 +32,7 @@ namespace FinalCapstone.Models
 
         public System.Data.Entity.DbSet<FinalCapstone.Models.Client> Clients { get; set; }
 
-        public System.Data.Entity.DbSet<FinalCapstone.Models.ApplicationUser> ApplicationUsers { get; set; }
+       // public System.Data.Entity.DbSet<FinalCapstone.Models.ApplicationUser> ApplicationUsers { get; set; }
 
         public System.Data.Entity.DbSet<FinalCapstone.Models.ClientTherapist> ClientTherapists { get; set; }
 

@@ -175,12 +175,18 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MassageTherapistsController.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\202001291734159_InitialMigration.cs" />
     <Compile Include="Migrations\202001291734159_InitialMigration.Designer.cs">
       <DependentUpon>202001291734159_InitialMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001291757140_models.cs" />
+    <Compile Include="Migrations\202001291757140_models.Designer.cs">
+      <DependentUpon>202001291757140_models.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -275,6 +281,8 @@
     <Content Include="Views\ClientPrefs\Details.cshtml" />
     <Content Include="Views\ClientPrefs\Edit.cshtml" />
     <Content Include="Views\ClientPrefs\Index.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Roles\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -295,6 +303,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202001291734159_InitialMigration.resx">
       <DependentUpon>202001291734159_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001291757140_models.resx">
+      <DependentUpon>202001291757140_models.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
