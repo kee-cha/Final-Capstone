@@ -29,5 +29,11 @@ namespace Final_CapAPi.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<Final_CapAPi.Models.Injury> Injuries { get; set; }
+
+        public System.Data.Entity.DbSet<Final_CapAPi.Models.Cause> Causes { get; set; }
+
+        public System.Data.Entity.DbSet<Final_CapAPi.Models.Treatment> Treatments { get; set; }
     }
 }

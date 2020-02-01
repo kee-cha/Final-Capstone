@@ -31,7 +31,7 @@ namespace FinalCapstone
             if (!roleManager.RoleExists("Therapist"))
             {
                 var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
-                role.Name = "Manager";
+                role.Name = "Therapist";
                 roleManager.Create(role);
 
             }
@@ -40,7 +40,7 @@ namespace FinalCapstone
             if (!roleManager.RoleExists("Client"))
             {
                 var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
-                role.Name = "Employee";
+                role.Name = "Client";
                 roleManager.Create(role);
 
             }

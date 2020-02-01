@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FinalCapstone.Models;
+using Microsoft.AspNet.Identity;
 
 namespace FinalCapstone.Controllers
 {
@@ -22,13 +23,16 @@ namespace FinalCapstone.Controllers
         }
 
         // GET: ClientPrefs/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details()
         {
+            var id = User.Identity.GetUserId();
+            var client = db.Clients.Include(c => c.ApplicationUser).Where(c => c.ApplicationId == id).SingleOrDefault();
+            var clientPref = db.ClientPrefs.Where(p => p.ClientId == client.Id).SingleOrDefault();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ClientPref clientPref = db.ClientPrefs.Find(id);
+ 
             if (clientPref == null)
             {
                 return HttpNotFound();
@@ -48,7 +52,7 @@ namespace FinalCapstone.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,HeadPain,NeckPain,UpperBackPain,LowBackPain,ShoulderPain,ArmPain,WristHandPain,HipPain,ThighPain,KneeLegPain,AnkleFootPain,TherapistGender,TherapistSpecialty,ClientId")] ClientPref clientPref)
+        public ActionResult Create(ClientPref clientPref)
         {
             if (ModelState.IsValid)
             {
@@ -58,7 +62,7 @@ namespace FinalCapstone.Controllers
             }
 
             ViewBag.ClientId = new SelectList(db.Clients, "Id", "FirstName", clientPref.ClientId);
-            return View(clientPref);
+            return View("Details", clientPref);
         }
 
         // GET: ClientPrefs/Edit/5
@@ -82,7 +86,7 @@ namespace FinalCapstone.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,HeadPain,NeckPain,UpperBackPain,LowBackPain,ShoulderPain,ArmPain,WristHandPain,HipPain,ThighPain,KneeLegPain,AnkleFootPain,TherapistGender,TherapistSpecialty,ClientId")] ClientPref clientPref)
+        public ActionResult Edit(ClientPref clientPref)
         {
             if (ModelState.IsValid)
             {

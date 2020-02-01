@@ -11,6 +11,7 @@ namespace FinalCapstone.Controllers
         // GET: Roles
         public ActionResult Index()
         {
+            
 
             if (User.Identity.IsAuthenticated)
             {

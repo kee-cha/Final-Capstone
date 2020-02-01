@@ -13,7 +13,7 @@ namespace FinalCapstone.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202001291734159_InitialMigration"; }
+            get { return "202001312103289_InitialMigration"; }
         }
         
         string IMigrationMetadata.Source

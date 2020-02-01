@@ -37,6 +37,13 @@ namespace FinalCapstone.Models
         public string TherapistGender { get; set; }
         [Display(Name = "Therapist Specialty Preference")]
         public string TherapistSpecialty { get; set; }
+        [Display(Name ="Time Frame Preference")]
+        public string TimeFramePref { get; set; }
+        [Display(Name ="Appointment Time")]
+        public string AppointmentTime { get; set; }
+        [Display(Name ="Appointment Date")]
+        public string AppointmentDate { get; set; }
+
         [ForeignKey("Client")]
         public int ClientId { get; set; }
         public Client Client { get; set; }

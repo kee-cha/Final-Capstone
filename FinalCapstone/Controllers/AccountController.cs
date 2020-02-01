@@ -169,7 +169,15 @@ namespace FinalCapstone.Controllers
                     //Assign Role to user Here       
                     await this.UserManager.AddToRoleAsync(user.Id, model.UserRoles);
                     //Ends Here     
-                    return RedirectToAction("Index", "Users");
+                    if (model.UserRoles == "Client")
+                    {
+                        return RedirectToAction("Create", "Clients");
+                    }
+                    if (model.UserRoles == "Therapist")
+                    {
+                        return RedirectToAction("Create", "MassageTherapists");
+                    }
+                    
                 }
                 ViewBag.Name = new SelectList(db.Roles.Where(u => !u.Name.Contains("Admin"))
                                           .ToList(), "Name", "Name");
@@ -393,6 +401,11 @@ namespace FinalCapstone.Controllers
             return View(model);
         }
 
+        public ActionResult LogOut()
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            return RedirectToAction("Login");
+        }
         //
         // POST: /Account/LogOff
         [HttpPost]

@@ -20,8 +20,9 @@ namespace FinalCapstone.Models
         public string State { get; set; }
         [Display(Name ="Zip Code")]
         public string Zip { get; set; }
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
+        public double? Latitude { get; set; }
+        public double? Longitude { get; set; }
+
         [ForeignKey("ApplicationUser")]
         public string ApplicationId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }

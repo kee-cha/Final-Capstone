@@ -25,6 +25,20 @@ namespace FinalCapstone.Models
         public string Gender { get; set; }
         public string Specialty { get; set; }
         public double Rating { get; set; }
+        [Display(Name ="Time Frame Preference")]
+        public string TimeFramePref { get; set; }
+        [Display(Name ="Sessions Per Day")]
+        public int SessionPerDay{ get; set; }
+        public string AppointmentDate { get; set; }
+        public string Schedule1 { get; set; }
+        public string Schedule2 { get; set; }
+        public string Schedule3 { get; set; }
+        public string Schedule4 { get; set; }
+        public bool IsOpen1 { get; set; }
+        public bool IsOpen2 { get; set; }
+        public bool IsOpen3 { get; set; }
+        public bool IsOpen4 { get; set; }
+
         [ForeignKey("ApplicationUser")]
         public string ApplicationId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }

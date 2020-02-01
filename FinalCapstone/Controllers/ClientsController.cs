@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FinalCapstone.Models;
+using Microsoft.AspNet.Identity;
 
 namespace FinalCapstone.Controllers
 {
@@ -48,13 +49,14 @@ namespace FinalCapstone.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,FirstName,LastName,Street,City,State,Zip,Latitude,Longitude,ApplicationId")] Client client)
+        public ActionResult Create(Client client)
         {
             if (ModelState.IsValid)
-            {
+            {                
+                client.ApplicationId =  User.Identity.GetUserId();
                 db.Clients.Add(client);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("LogOut","Account");
             }
 
             ViewBag.ApplicationId = new SelectList(db.Users, "Id", "Email", client.ApplicationId);
@@ -82,7 +84,7 @@ namespace FinalCapstone.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Street,City,State,Zip,Latitude,Longitude,ApplicationId")] Client client)
+        public ActionResult Edit( Client client)
         {
             if (ModelState.IsValid)
             {

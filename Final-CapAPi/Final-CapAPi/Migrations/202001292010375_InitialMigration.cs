@@ -1,4 +1,4 @@
-namespace FinalCapstone.Migrations
+namespace Final_CapAPi.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;

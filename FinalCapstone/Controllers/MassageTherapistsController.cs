@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FinalCapstone.Models;
+using Microsoft.AspNet.Identity;
 
 namespace FinalCapstone.Controllers
 {
@@ -15,25 +16,44 @@ namespace FinalCapstone.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: MassageTherapists
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
-            var massageTherapists = db.MassageTherapists.Include(m => m.ApplicationUser);
-            return View(massageTherapists.ToList());
+           
+            //var massageTherapists = db.MassageTherapists.Include(m => m.ApplicationUser);
+            var client = db.Clients.Where(c => c.Id == id).SingleOrDefault();
+            var therapist = Filter(client.Id);
+            return View(therapist);
         }
 
-        // GET: MassageTherapists/Details/5
-        public ActionResult Details(int? id)
+        public List<MassageTherapist> Filter(int id)
         {
-            if (id == null)
+            var pref = db.ClientPrefs.Where(p => p.ClientId == id).SingleOrDefault();
+            var therapist = db.MassageTherapists.Where(m => m.Gender == pref.TherapistGender && m.Specialty == pref.TherapistSpecialty).ToList();
+            return therapist;
+        }
+
+        public List<MassageTherapist> FilterByLocation(List<MassageTherapist> therapist, int id)
+        {
+            var client = db.Clients.Where(c => c.Id == id).SingleOrDefault();
+            therapist = db.MassageTherapists.Where(m => m.Zip == client.Zip).ToList();
+            return therapist;            
+        }
+        // GET: MassageTherapists/Details/5
+        public ActionResult Details()
+        {
+            var id = User.Identity.GetUserId();
+            var therapist = db.MassageTherapists.Include(t => t.ApplicationUser).Where(t => t.ApplicationId == id).SingleOrDefault();            
+                       
+            if (therapist.ApplicationId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MassageTherapist massageTherapist = db.MassageTherapists.Find(id);
-            if (massageTherapist == null)
+
+            if (therapist == null)
             {
                 return HttpNotFound();
             }
-            return View(massageTherapist);
+            return View(therapist);
         }
 
         // GET: MassageTherapists/Create
@@ -48,13 +68,14 @@ namespace FinalCapstone.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,FirstName,LastName,Street,City,State,Zip,Latitude,Longitude,Gender,Specialty,Rating,ApplicationId")] MassageTherapist massageTherapist)
+        public ActionResult Create(MassageTherapist massageTherapist)
         {
             if (ModelState.IsValid)
             {
+                massageTherapist.ApplicationId = User.Identity.GetUserId();
                 db.MassageTherapists.Add(massageTherapist);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("LogOut","Account");
             }
 
             ViewBag.ApplicationId = new SelectList(db.Users, "Id", "Email", massageTherapist.ApplicationId);
@@ -82,16 +103,36 @@ namespace FinalCapstone.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Street,City,State,Zip,Latitude,Longitude,Gender,Specialty,Rating,ApplicationId")] MassageTherapist massageTherapist)
+        public ActionResult Edit( MassageTherapist massageTherapist)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(massageTherapist).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details");
             }
             ViewBag.ApplicationId = new SelectList(db.Users, "Id", "Email", massageTherapist.ApplicationId);
             return View(massageTherapist);
+        }
+
+        public ActionResult SetSchedule()
+        {
+            var userId = User.Identity.GetUserId();
+            var therapist = db.MassageTherapists.Include(t => t.ApplicationUser).Where(t => t.ApplicationId == userId).SingleOrDefault();
+            return View("Schedule", therapist);
+        }
+        [HttpPost]
+        public ActionResult SetSchedule(int? id, MassageTherapist update)
+        {
+            var therapist = db.MassageTherapists.Include(t => t.ApplicationUser).Where(t => t.Id == id).SingleOrDefault();
+
+            therapist.Schedule1 = update.Schedule1;
+            therapist.Schedule2 = update.Schedule2;
+            therapist.Schedule3 = update.Schedule3;
+            therapist.Schedule4 = update.Schedule4;
+            db.SaveChanges();
+            return View("Details", therapist);
+
         }
 
         // GET: MassageTherapists/Delete/5

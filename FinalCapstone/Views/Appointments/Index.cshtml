@@ -1,4 +1,4 @@
-﻿@model IEnumerable<FinalCapstone.Models.ClientTherapist>
+﻿@model IEnumerable<FinalCapstone.Models.Appointment>
 
 @{
     ViewBag.Title = "Index";
@@ -17,6 +17,9 @@
         <th>
             @Html.DisplayNameFor(model => model.MassageTherapist.FirstName)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AppointmentTime)
+        </th>
         <th></th>
     </tr>
 
@@ -27,6 +30,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.MassageTherapist.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AppointmentTime)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
