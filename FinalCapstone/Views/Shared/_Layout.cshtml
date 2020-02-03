@@ -25,12 +25,14 @@
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     @if (User.IsInRole("Client") == true)
-                    {
-                        <li>@Html.ActionLink("Profile", "Details", "ClientPrefs")</li>
+                    {                    
+                        <li>@Html.ActionLink("Profile", "Details", "Clients")</li>
+                        <li>@Html.ActionLink("Massage Therapists", "Index", "MassageTherapists")</li>
                     }
                     @if (User.IsInRole("Therapist") == true)
                     {
                         <li>@Html.ActionLink("Profile", "Details", "MassageTherapists")</li>
+                        <li>@Html.ActionLink("Appointments", "Index", "Clients")</li>
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")
@@ -40,9 +42,6 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")

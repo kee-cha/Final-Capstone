@@ -103,37 +103,117 @@
         <dd>
             @Html.DisplayFor(model => model.Rating)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Schedule1)
-        </dt>
+        @if (Model.Schedule1 != null)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Schedule1)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Schedule1)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Schedule2)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Schedule1)
+            </dd>
+        }
+        @if (Model.Schedule2 != null)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Schedule2)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Schedule2)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Schedule3)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Schedule2)
+            </dd>
+        }
+        @if (Model.Schedule3 != null)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Schedule3)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Schedule3)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Schedule4)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Schedule3)
+            </dd>
+        }
+        @if (Model.Schedule4 != null)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Schedule4)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Schedule4)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Schedule4)
+            </dd>
+        }
+
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Set Availibility", "SetSchedule", new { id = Model.Id }) |
-</p>
+@if (User.IsInRole("Therapist") == true)
+{
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Set Availibility", "SetSchedule", new { id = Model.Id }) |
+    </p>
+
+}
+@if (User.IsInRole("Client") == true)
+{
+    <p>
+        @Html.ActionLink("Schedule Therapist", "MakeAppointment", new {id = Model.Id })
+    </p>
+    <br />
+    <br />
+    <div id="map"></div>
+    <script>
+    function initMap() {
+    var pointA = new google.maps.LatLng(@ViewBag.ClientLat, @ViewBag.ClientLng),
+        pointB = new google.maps.LatLng(@Model.Latitude, @Model.Longitude),
+        myOptions = {
+            zoom: 10,
+            center: pointA
+        },
+        map = new google.maps.Map(document.getElementById('map'), myOptions),
+        // Instantiate a directions service.
+        directionsService = new google.maps.DirectionsService,
+        directionsDisplay = new google.maps.DirectionsRenderer({
+            map: map
+        }),
+        markerA = new google.maps.Marker({
+            position: pointA,
+            title: "point A",
+            label: "A",
+            map: map
+        }),
+        markerB = new google.maps.Marker({
+            position: pointB,
+            title: "point B",
+            label: "B",
+            map: map
+        });
+
+    // get route from A to B
+    calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, pointB);
+
+}
+
+
+
+    function calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, pointB) {
+        directionsService.route({
+            origin: pointA,
+            destination: pointB,
+            avoidTolls: true,
+            avoidHighways: false,
+            travelMode: google.maps.TravelMode.DRIVING
+        }, function (response, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(response);
+            } else {
+            window.alert('Directions request failed due to ' + status);
+        }
+    });
+}
+    </script>
+    <script async defer src=@ViewBag.Map></script>
+
+
+
+}

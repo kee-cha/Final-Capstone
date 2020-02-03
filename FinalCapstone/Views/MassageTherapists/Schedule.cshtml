@@ -1,63 +1,108 @@
-﻿@model FinalCapstone.Models.MassageTherapist
+﻿@model FinalCapstone.Models.MTAppointViewModel
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>MassageTherapist</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.MassageTherapist.Id)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.TimeFramePref, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TimeFramePref, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TimeFramePref, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        @if (User.IsInRole("Therapist") == true)
+        {
+            if (Model.MassageTherapist.SessionPerDay > 0)
+            {
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MassageTherapist.Schedule1, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.MassageTherapist.Schedule1, Model.SetTime)
+                        @Html.ValidationMessageFor(model => model.SetTime, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
+            if (Model.MassageTherapist.SessionPerDay > 1)
+            {
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MassageTherapist.Schedule2, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.MassageTherapist.Schedule2, Model.SetTime)
+                        @Html.ValidationMessageFor(model => model.SetTime, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
+            if (Model.MassageTherapist.SessionPerDay > 2)
+            {
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MassageTherapist.Schedule3, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.MassageTherapist.Schedule3, Model.SetTime)
+                        @Html.ValidationMessageFor(model => model.SetTime, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
+            if (Model.MassageTherapist.SessionPerDay > 3)
+            {
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MassageTherapist.Schedule4, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.MassageTherapist.Schedule4, Model.SetTime)
+                        @Html.ValidationMessageFor(model => model.SetTime, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
+        }
+        @if (User.IsInRole("Client") == true)
+        {
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.AppointmentDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.AppointmentDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.AppointmentDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
+            if (Model.MassageTherapist.SessionPerDay > 0)
+            {
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MassageTherapist.Schedule1, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.DisplayFor(model => model.MassageTherapist.Schedule1)
+                    <div class="col-md-10">
+                        @Html.CheckBoxFor(model => model.MassageTherapist.IsOpen1)
+                        @Html.ValidationMessageFor(model => model.MassageTherapist.IsOpen1, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
+            if (Model.MassageTherapist.SessionPerDay > 1)
+            {
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MassageTherapist.Schedule2, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.DisplayFor(model => model.MassageTherapist.Schedule2)
+                    <div class="col-md-10">
+                        @Html.CheckBoxFor(model => model.MassageTherapist.IsOpen2)
+                        @Html.ValidationMessageFor(model => model.MassageTherapist.IsOpen2, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
+            if (Model.MassageTherapist.SessionPerDay > 2)
+            {
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MassageTherapist.Schedule3, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.DisplayFor(model => model.MassageTherapist.Schedule3)
+                    <div class="col-md-10">
+                        @Html.CheckBoxFor(model => model.MassageTherapist.IsOpen3)
+                        @Html.ValidationMessageFor(model => model.MassageTherapist.IsOpen3, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
+            if (Model.MassageTherapist.SessionPerDay > 3)
+            {
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MassageTherapist.Schedule4, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.DisplayFor(model => model.MassageTherapist.Schedule4)
+                    <div class="col-md-10">
+                        @Html.CheckBoxFor(model => model.MassageTherapist.IsOpen4)
+                        @Html.ValidationMessageFor(model => model.MassageTherapist.IsOpen4, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Schedule1, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Schedule1, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Schedule1, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Schedule2, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Schedule2, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Schedule2, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Schedule3, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Schedule3, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Schedule3, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Schedule4, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Schedule4, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Schedule4, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        }
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

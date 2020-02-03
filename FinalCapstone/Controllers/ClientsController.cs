@@ -4,10 +4,13 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using FinalCapstone.Models;
 using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 
 namespace FinalCapstone.Controllers
 {
@@ -25,11 +28,18 @@ namespace FinalCapstone.Controllers
         // GET: Clients/Details/5
         public ActionResult Details(int? id)
         {
+            var userId = User.Identity.GetUserId();
+            Client client = null;
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                client = db.Clients.Include(c => c.ApplicationUser).Where(c => c.ApplicationId == userId).SingleOrDefault();
+
             }
-            Client client = db.Clients.Find(id);
+            else
+            {
+                client = db.Clients.Find(id);
+            }
+            
             if (client == null)
             {
                 return HttpNotFound();
@@ -49,18 +59,36 @@ namespace FinalCapstone.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Client client)
+        public async Task<ActionResult> Create(Client client)
         {
             if (ModelState.IsValid)
             {                
                 client.ApplicationId =  User.Identity.GetUserId();
+                await GetClientCoord(client);
                 db.Clients.Add(client);
                 db.SaveChanges();
-                return RedirectToAction("LogOut","Account");
+                return RedirectToAction("Create","ClientPrefs");
             }
 
             ViewBag.ApplicationId = new SelectList(db.Users, "Id", "Email", client.ApplicationId);
             return View(client);
+        }
+        public async Task<ActionResult> GetClientCoord(Client thisClient)
+        {
+            string location = thisClient.Street + "+" + thisClient.City + "+" + thisClient.State + "+" + thisClient.Zip;
+            HttpClient client = new HttpClient();
+            string url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + location + "&key=" + GoogleMapKey.myKey;
+            HttpResponseMessage response = await client.GetAsync(url);
+            string result = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+            {
+                GeoModel GeoResult = JsonConvert.DeserializeObject<GeoModel>(result);
+                thisClient.Latitude = GeoResult.results[0].geometry.location.lat;
+                thisClient.Longitude = GeoResult.results[0].geometry.location.lng;
+                return View(thisClient);
+            }
+
+            return View(thisClient);
         }
 
         // GET: Clients/Edit/5

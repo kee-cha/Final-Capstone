@@ -2,18 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
 
 namespace FinalCapstone.Models
 {
-    public class MTAppointViewModel
+    public class ClientPrefViewModel
     {
-        public SelectList SetTime { get; set; }
-        public MassageTherapist MassageTherapist { get; set; }
         public Client Client { get; set; }
         public ClientPref ClientPref { get; set; }
-
-        public string time;
-
     }
 }

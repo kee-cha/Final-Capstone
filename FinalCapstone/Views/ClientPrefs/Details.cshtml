@@ -6,42 +6,33 @@
 
 
 <div class="container">
-    <div class="row">
-        <h2>@Model.Client.FirstName's Profile</h2>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Client.FirstName)
-            </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Client.FirstName)
-            </dd>
+    <hr />
+    <dl class="dl-horizontal">
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Client.LastName)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.TherapistGender)
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Client.LastName)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.TherapistGender)
+        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.TherapistGender)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.TherapistSpecialty)
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.TherapistGender)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.TherapistSpecialty)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.TherapistSpecialty)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.TherapistSpecialty)
+        </dd>
+        <div class="row">
+            <div class="col-md-6" align="center">
+                <h4>Problem Areas</h4>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md-3">
+                <h5 align ="center">Upper Body</h5>
                 <dt>
                     @Html.DisplayNameFor(model => model.HeadPain)
                 </dt>
@@ -89,8 +80,6 @@
                 <dd>
                     @Html.DisplayFor(model => model.ArmPain)
                 </dd>
-            </div>
-            <div class="col-md-3">
                 <dt>
                     @Html.DisplayNameFor(model => model.WristHandPain)
                 </dt>
@@ -98,6 +87,9 @@
                 <dd>
                     @Html.DisplayFor(model => model.WristHandPain)
                 </dd>
+            </div>
+            <div class="col-md-3">
+                <h5 align ="center">Lower Body</h5>
 
                 <dt>
                     @Html.DisplayNameFor(model => model.HipPain)
@@ -131,12 +123,11 @@
                     @Html.DisplayFor(model => model.AnkleFootPain)
                 </dd>
             </div>
-            <div class="col-md-6"></div>
-        </dl>
-    </div>
+        </div>
+    </dl>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Search Massage Therapist", "Index", "MassageTherapists",new { id = Model.Id }, "") |
+    @Html.ActionLink("Search Massage Therapist", "Index", "MassageTherapists", new { id = Model.Id }, "") |
     @Html.ActionLink("Back to List", "Index")
 </p>

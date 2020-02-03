@@ -168,7 +168,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AppointmentsController.cs" />
     <Compile Include="Controllers\ClientPrefsController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\DocumentsController.cs" />
@@ -180,17 +179,44 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="GoogleMapKey.cs" />
     <Compile Include="Migrations\202001312103289_InitialMigration.cs" />
     <Compile Include="Migrations\202001312103289_InitialMigration.Designer.cs">
       <DependentUpon>202001312103289_InitialMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002020411468_MadeClientPrefVM.cs" />
+    <Compile Include="Migrations\202002020411468_MadeClientPrefVM.Designer.cs">
+      <DependentUpon>202002020411468_MadeClientPrefVM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002022248452_addSelectListProp.cs" />
+    <Compile Include="Migrations\202002022248452_addSelectListProp.Designer.cs">
+      <DependentUpon>202002022248452_addSelectListProp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002022300299_addNewPropInVM.cs" />
+    <Compile Include="Migrations\202002022300299_addNewPropInVM.Designer.cs">
+      <DependentUpon>202002022300299_addNewPropInVM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002030031453_addGeoModel.cs" />
+    <Compile Include="Migrations\202002030031453_addGeoModel.Designer.cs">
+      <DependentUpon>202002030031453_addGeoModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002031755057_addPropToVm.cs" />
+    <Compile Include="Migrations\202002031755057_addPropToVm.Designer.cs">
+      <DependentUpon>202002031755057_addPropToVm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002031947396_addPrefPropToVM.cs" />
+    <Compile Include="Migrations\202002031947396_addPrefPropToVM.Designer.cs">
+      <DependentUpon>202002031947396_addPrefPropToVM.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\ClientPref.cs" />
+    <Compile Include="Models\ClientPrefViewModel.cs" />
     <Compile Include="Models\ClientTherapist.cs" />
     <Compile Include="Models\Document.cs" />
+    <Compile Include="Models\GeoModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MassageTherapist.cs" />
@@ -302,6 +328,24 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202001312103289_InitialMigration.resx">
       <DependentUpon>202001312103289_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002020411468_MadeClientPrefVM.resx">
+      <DependentUpon>202002020411468_MadeClientPrefVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002022248452_addSelectListProp.resx">
+      <DependentUpon>202002022248452_addSelectListProp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002022300299_addNewPropInVM.resx">
+      <DependentUpon>202002022300299_addNewPropInVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002030031453_addGeoModel.resx">
+      <DependentUpon>202002030031453_addGeoModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002031755057_addPropToVm.resx">
+      <DependentUpon>202002031755057_addPropToVm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002031947396_addPrefPropToVM.resx">
+      <DependentUpon>202002031947396_addPrefPropToVM.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -54,11 +54,14 @@ namespace FinalCapstone.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(ClientPref clientPref)
         {
+            var userId = User.Identity.GetUserId();
+            var client = db.Clients.Where(c => c.ApplicationId == userId).SingleOrDefault();
             if (ModelState.IsValid)
             {
+                clientPref.ClientId = client.Id;
                 db.ClientPrefs.Add(clientPref);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("LogOut", "Account");
             }
 
             ViewBag.ClientId = new SelectList(db.Clients, "Id", "FirstName", clientPref.ClientId);
@@ -68,17 +71,20 @@ namespace FinalCapstone.Controllers
         // GET: ClientPrefs/Edit/5
         public ActionResult Edit(int? id)
         {
+            ClientPrefViewModel viewModel = new ClientPrefViewModel();
+            var userId = User.Identity.GetUserId();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ClientPref clientPref = db.ClientPrefs.Find(id);
-            if (clientPref == null)
+            viewModel.ClientPref = db.ClientPrefs.Find(id);
+            viewModel.Client = db.Clients.Where(c => c.ApplicationId == userId).SingleOrDefault();
+            if (viewModel.ClientPref == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.ClientId = new SelectList(db.Clients, "Id", "FirstName", clientPref.ClientId);
-            return View(clientPref);
+            ViewBag.ClientId = new SelectList(db.Clients, "Id", "FirstName",viewModel.ClientPref.ClientId);
+            return View(viewModel);
         }
 
         // POST: ClientPrefs/Edit/5
@@ -86,16 +92,24 @@ namespace FinalCapstone.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(ClientPref clientPref)
+        public ActionResult Edit(ClientPrefViewModel viewModel)
         {
+        
+            Client client = viewModel.Client;
+
+            ClientPref clientPref = viewModel.ClientPref;
+
             if (ModelState.IsValid)
-            {
+            {                
                 db.Entry(clientPref).State = EntityState.Modified;
                 db.SaveChanges();
+                db.Entry(client).State = EntityState.Modified;
+                db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
-            ViewBag.ClientId = new SelectList(db.Clients, "Id", "FirstName", clientPref.ClientId);
-            return View(clientPref);
+            ViewBag.ClientId = new SelectList(db.Clients, "Id", "FirstName", viewModel.ClientPref.ClientId);
+            return View(viewModel);
         }
 
         // GET: ClientPrefs/Delete/5
