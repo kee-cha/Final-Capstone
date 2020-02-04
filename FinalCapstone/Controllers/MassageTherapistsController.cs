@@ -66,7 +66,7 @@ namespace FinalCapstone.Controllers
             return therapist;
         }
         // GET: MassageTherapists/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id, MTAppointViewModel viewModel)
         {
             var userId = User.Identity.GetUserId();
             MassageTherapist therapist = null;
@@ -89,6 +89,18 @@ namespace FinalCapstone.Controllers
 
             ViewBag.Map = "https://maps.googleapis.com/maps/api/js?key=" + GoogleMapKey.myKey + "&callback=initMap";
             return View(therapist);
+        }
+        [HttpPost]
+        public ActionResult Details(int? id, MTAppointViewModel model, string name)
+        {            
+            var userId = User.Identity.GetUserId();
+            var client = db.Clients.Where(c => c.ApplicationId == userId).SingleOrDefault();
+            model.Client = client;
+            var pref = db.ClientPrefs.Where(p => p.ClientId == client.Id).SingleOrDefault();
+            model.MassageTherapist = db.MassageTherapists.Include(t => t.ApplicationUser).Where(t => t.Id == id).SingleOrDefault();
+            pref.AppointmentDate = model.ClientPref.AppointmentDate;
+            db.SaveChanges();
+            return RedirectToAction("MakeAppointment", new { mtId = model.MassageTherapist.Id, cpId = model.ClientPref.Id });
         }
 
         // GET: MassageTherapists/Create
@@ -191,49 +203,59 @@ namespace FinalCapstone.Controllers
             return View("Details", therapist);
 
         }
-        public ActionResult MakeAppointment(int? id)
+        public ActionResult MakeAppointment(int? mtId, int? cpId)
         {
-            MTAppointViewModel viewModel = new MTAppointViewModel();
+            MTAppointViewModel model = new MTAppointViewModel();
             var userId = User.Identity.GetUserId();
-            viewModel.Client = db.Clients.Where(c => c.ApplicationId == userId).SingleOrDefault();
-            viewModel.MassageTherapist = db.MassageTherapists.Where(m => m.Id == id).SingleOrDefault();
-            return View(viewModel);
-
+            model.Client = db.Clients.Where(c => c.ApplicationId == userId).SingleOrDefault();
+            model.ClientPref = db.ClientPrefs.Where(p => p.Id==cpId).SingleOrDefault();
+            model.MassageTherapist = db.MassageTherapists.Where(t => t.Id == mtId).SingleOrDefault();
+            
+            return View("Schedule", model);
         }
 
         [HttpPost]
-        public ActionResult MakeAppointment(int? id, MTAppointViewModel viewModel)
+        public ActionResult MakeAppointment(MTAppointViewModel viewModel)
         {
             var userId = User.Identity.GetUserId();
             var client = db.Clients.Include(c => c.ApplicationUser).Where(c => c.ApplicationId == userId).SingleOrDefault();
-            var therapist = db.MassageTherapists.Include(t => t.ApplicationUser).Where(t => t.Id == id).SingleOrDefault();
+            var therapist = db.MassageTherapists.Include(t => t.ApplicationUser).Where(t => t.Id == viewModel.MassageTherapist.Id).SingleOrDefault();
             var clientPref = db.ClientPrefs.Include(c => c.Client).Where(c => c.ClientId == client.Id).SingleOrDefault();
             if (viewModel.MassageTherapist.IsOpen1 == true)
             {
                 if (clientPref.AppointmentTime == null)
                 {
+                    therapist.IsOpen1 = true;
                     clientPref.AppointmentTime = therapist.Schedule1;
+
+                    therapist.AppointmentDate = clientPref.AppointmentDate;
                 }
             }
             if (viewModel.MassageTherapist.IsOpen2 == true)
             {
                 if (clientPref.AppointmentTime == null)
                 {
+                    therapist.IsOpen2 = true;
                     clientPref.AppointmentTime = therapist.Schedule2;
+                    therapist.AppointmentDate = clientPref.AppointmentDate;
                 }
             }
             if (viewModel.MassageTherapist.IsOpen3 == true)
             {
                 if (clientPref.AppointmentTime == null)
                 {
+                    therapist.IsOpen3 = true;
                     clientPref.AppointmentTime = therapist.Schedule3;
+                    therapist.AppointmentDate = clientPref.AppointmentDate;
                 }
             }
             if (viewModel.MassageTherapist.IsOpen4 == true)
             {
                 if (clientPref.AppointmentTime == null)
                 {
+                    therapist.IsOpen3 = true;
                     clientPref.AppointmentTime = therapist.Schedule4;
+                    therapist.AppointmentDate = clientPref.AppointmentDate;
                 }
             }
             db.SaveChanges();
@@ -249,18 +271,7 @@ namespace FinalCapstone.Controllers
             viewModel.ClientPref = pref;
             return View(viewModel);
         }
-        [HttpPost]
-        public ActionResult SetDate(MTAppointViewModel viewModel)
-        {
-            var userId = User.Identity.GetUserId();
-            var client = db.Clients.Where(c => c.ApplicationId == userId).SingleOrDefault();
-            var pref = db.ClientPrefs.Where(p => p.ClientId == client.Id).SingleOrDefault();
-            viewModel.MassageTherapist = db.MassageTherapists.Include(t => t.ApplicationUser).Where(t => t.Id == viewModel.MassageTherapist.Id).SingleOrDefault();
-            pref.AppointmentDate = viewModel.ClientPref.AppointmentDate;
-            db.SaveChanges();
-            
-            return View("Schedule", viewModel);
-        }
+
        
         // GET: MassageTherapists/Delete/5
         public ActionResult Delete(int? id)

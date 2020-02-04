@@ -25,6 +25,26 @@
         <dd>
             @Html.DisplayFor(model => model.TherapistSpecialty)
         </dd>
+        @if (Model.AppointmentDate != null)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.AppointmentDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AppointmentDate)
+            </dd>
+        }
+        @if (Model.AppointmentTime != null)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.AppointmentTime)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AppointmentTime)
+            </dd>
+        }
         <div class="row">
             <div class="col-md-6" align="center">
                 <h4>Problem Areas</h4>
@@ -32,7 +52,7 @@
         </div>
         <div class="row">
             <div class="col-md-3">
-                <h5 align ="center">Upper Body</h5>
+                <h5 align="center">Upper Body</h5>
                 <dt>
                     @Html.DisplayNameFor(model => model.HeadPain)
                 </dt>
@@ -89,7 +109,7 @@
                 </dd>
             </div>
             <div class="col-md-3">
-                <h5 align ="center">Lower Body</h5>
+                <h5 align="center">Lower Body</h5>
 
                 <dt>
                     @Html.DisplayNameFor(model => model.HipPain)
