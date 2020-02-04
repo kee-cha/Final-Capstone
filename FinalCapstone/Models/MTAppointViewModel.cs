@@ -9,6 +9,7 @@ namespace FinalCapstone.Models
     public class MTAppointViewModel
     {
         public SelectList SetTime { get; set; }
+        public SelectList DayPref { get; set; }
         public MassageTherapist MassageTherapist { get; set; }
         public Client Client { get; set; }
         public ClientPref ClientPref { get; set; }

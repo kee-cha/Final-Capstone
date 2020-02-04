@@ -70,6 +70,7 @@ namespace FinalCapstone.Controllers
         {
             var userId = User.Identity.GetUserId();
             MassageTherapist therapist = null;
+
             if (id != null)
             {
                 therapist = db.MassageTherapists.Include(t => t.ApplicationUser).Where(t => t.Id == id).SingleOrDefault();
@@ -173,6 +174,7 @@ namespace FinalCapstone.Controllers
         {
             MTAppointViewModel viewModel = new MTAppointViewModel();
             viewModel.MassageTherapist = db.MassageTherapists.Where(t => t.Id == id).SingleOrDefault();
+            viewModel.DayPref = new SelectList(new List<string> { "Morning", "Afternoon", "Evening" });
             viewModel.SetTime = new SelectList(new List<string>() { "7:00 AM", "8:00 AM", "9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM", "7:00 PM", "8:00 PM", "9:00 PM", "10:00 PM" });
             return View("Schedule", viewModel);
         }
@@ -189,12 +191,14 @@ namespace FinalCapstone.Controllers
             return View("Details", therapist);
 
         }
-
         public ActionResult MakeAppointment(int? id)
         {
             MTAppointViewModel viewModel = new MTAppointViewModel();
-            viewModel.MassageTherapist = db.MassageTherapists.Include(t => t.ApplicationUser).Where(t => t.Id == id).SingleOrDefault();
-            return View("Schedule", viewModel);
+            var userId = User.Identity.GetUserId();
+            viewModel.Client = db.Clients.Where(c => c.ApplicationId == userId).SingleOrDefault();
+            viewModel.MassageTherapist = db.MassageTherapists.Where(m => m.Id == id).SingleOrDefault();
+            return View(viewModel);
+
         }
 
         [HttpPost]
@@ -235,6 +239,29 @@ namespace FinalCapstone.Controllers
             db.SaveChanges();
             return RedirectToAction("Details", "ClientPrefs");
         }
+        public ActionResult SetDate(int? id)
+        {
+            MTAppointViewModel viewModel = new MTAppointViewModel();
+            viewModel.MassageTherapist = db.MassageTherapists.Include(t => t.ApplicationUser).Where(t => t.Id == id).SingleOrDefault();
+            var userId = User.Identity.GetUserId();
+            var client = db.Clients.Where(c => c.ApplicationId == userId).SingleOrDefault();
+            var pref = db.ClientPrefs.Where(p => p.ClientId == client.Id).SingleOrDefault();
+            viewModel.ClientPref = pref;
+            return View(viewModel);
+        }
+        [HttpPost]
+        public ActionResult SetDate(MTAppointViewModel viewModel)
+        {
+            var userId = User.Identity.GetUserId();
+            var client = db.Clients.Where(c => c.ApplicationId == userId).SingleOrDefault();
+            var pref = db.ClientPrefs.Where(p => p.ClientId == client.Id).SingleOrDefault();
+            viewModel.MassageTherapist = db.MassageTherapists.Include(t => t.ApplicationUser).Where(t => t.Id == viewModel.MassageTherapist.Id).SingleOrDefault();
+            pref.AppointmentDate = viewModel.ClientPref.AppointmentDate;
+            db.SaveChanges();
+            
+            return View("Schedule", viewModel);
+        }
+       
         // GET: MassageTherapists/Delete/5
         public ActionResult Delete(int? id)
         {

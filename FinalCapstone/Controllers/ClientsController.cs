@@ -91,6 +91,7 @@ namespace FinalCapstone.Controllers
             return View(thisClient);
         }
 
+
         // GET: Clients/Edit/5
         public ActionResult Edit(int? id)
         {

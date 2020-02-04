@@ -1,4 +1,4 @@
-﻿@model FinalCapstone.Models.MassageTherapist
+﻿@model FinalCapstone.Models.MTAppointViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -16,68 +16,68 @@
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">
-        @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.MassageTherapist.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.MassageTherapist.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MassageTherapist.FirstName, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.MassageTherapist.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.MassageTherapist.LastName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MassageTherapist.LastName, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Street, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.MassageTherapist.Street, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Street, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Street, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.MassageTherapist.Street, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MassageTherapist.Street, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.MassageTherapist.City, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.MassageTherapist.City, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MassageTherapist.City, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.MassageTherapist.State, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.State, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.MassageTherapist.State, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MassageTherapist.State, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Zip, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.MassageTherapist.Zip, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Zip, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Zip, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.MassageTherapist.Zip, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MassageTherapist.Zip, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.MassageTherapist.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownListFor(model => model.Gender, new List<SelectListItem>{
+            @Html.DropDownListFor(model => model.MassageTherapist.Gender, new List<SelectListItem>{
             new SelectListItem{Text = "Male", Value = "Male" },
             new SelectListItem{Text = "Female", Value = "Female" } }, "--Choose Gender--",
             new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.MassageTherapist.Gender, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Specialty, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.MassageTherapist.Specialty, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownListFor(model => model.Specialty, new List<SelectListItem>{
+            @Html.DropDownListFor(model => model.MassageTherapist.Specialty, new List<SelectListItem>{
             new SelectListItem{Text = "Swedish", Value = "Swedish" },
             new SelectListItem{Text = "Reflecology", Value = "Reflexology" },
             new SelectListItem{Text = "Prenatal", Value = "Prenatal" },
@@ -85,42 +85,38 @@
             new SelectListItem{Text = "Craniosacral", Value = "Craniosacral" },
             new SelectListItem{Text = "Deep Tissue", Value = "Deep Tissue" } }, "--Choose Specialty--",
             new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Specialty, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.MassageTherapist.Specialty, "", new { @class = "text-danger" })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(model => model.TimeFramePref, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.TimeFramePref, new List<SelectListItem>{
-           new SelectListItem{Text = "Morning", Value = "Morning" },
-           new SelectListItem{Text = "Afternoon", Value = "Afternoon" },
-           new SelectListItem{Text = "Evening", Value = "Evening" } },
-           new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.TimeFramePref, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.MassageTherapist.TimeFramePref, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.DisplayFor(model => model.MassageTherapist.TimeFramePref)
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.MassageTherapist.TimeFramePref, Model.DayPref)
+                @Html.ValidationMessageFor(model => model.MassageTherapist.TimeFramePref, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.MassageTherapist.SessionPerDay, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.MassageTherapist.SessionPerDay, new List<SelectListItem>{
+               new SelectListItem{Text = "1", Value = "1" },
+               new SelectListItem{Text = "2", Value = "2" },
+               new SelectListItem{Text = "3", Value = "3" },
+               new SelectListItem{Text = "4", Value = "4" } },
+               new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MassageTherapist.SessionPerDay, "", new { @class = "text-danger" })
+            </div>
         </div>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.SessionPerDay, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.SessionPerDay, new List<SelectListItem>{
-           new SelectListItem{Text = "1", Value = "1" },
-           new SelectListItem{Text = "2", Value = "2" },
-           new SelectListItem{Text = "3", Value = "3" },
-           new SelectListItem{Text = "4", Value = "4" } },
-           new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.SessionPerDay, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
         </div>
     </div>
-
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
-        </div>
-    </div>
-</div>
 }
-
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>

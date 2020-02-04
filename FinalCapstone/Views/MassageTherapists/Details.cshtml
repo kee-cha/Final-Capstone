@@ -157,11 +157,11 @@
 @if (User.IsInRole("Client") == true)
 {
     <p>
-        @Html.ActionLink("Schedule Therapist", "MakeAppointment", new {id = Model.Id })
-    </p>
+        @{Html.RenderAction("SetDate", new { id = Model.Id });}
+    </p>    
     <br />
     <br />
-    <div id="map"></div>
+    @*<div id="map"></div>
     <script>
     function initMap() {
     var pointA = new google.maps.LatLng(@ViewBag.ClientLat, @ViewBag.ClientLng),
@@ -193,9 +193,6 @@
     calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, pointB);
 
 }
-
-
-
     function calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, pointB) {
         directionsService.route({
             origin: pointA,
@@ -212,8 +209,6 @@
     });
 }
     </script>
-    <script async defer src=@ViewBag.Map></script>
-
-
+    <script async defer src=@ViewBag.Map></script>*@
 
 }

@@ -208,6 +208,10 @@
     <Compile Include="Migrations\202002031947396_addPrefPropToVM.Designer.cs">
       <DependentUpon>202002031947396_addPrefPropToVM.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002032127562_addDayPrefToVm.cs" />
+    <Compile Include="Migrations\202002032127562_addDayPrefToVm.Designer.cs">
+      <DependentUpon>202002032127562_addDayPrefToVm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Appointment.cs" />
@@ -308,6 +312,7 @@
     <Content Include="Views\Appointments\Edit.cshtml" />
     <Content Include="Views\Appointments\Index.cshtml" />
     <Content Include="Views\MassageTherapists\Schedule.cshtml" />
+    <Content Include="Views\MassageTherapists\SetDate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -346,6 +351,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002031947396_addPrefPropToVM.resx">
       <DependentUpon>202002031947396_addPrefPropToVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002032127562_addDayPrefToVm.resx">
+      <DependentUpon>202002032127562_addDayPrefToVm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
