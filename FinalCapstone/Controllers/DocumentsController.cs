@@ -21,8 +21,12 @@ namespace FinalCapstone.Controllers
             userId = System.Web.HttpContext.Current.User.Identity.GetUserId(); 
         }
         // GET: Documents
-        public ActionResult Index()
+        public ActionResult Index(int? id, bool? complete )
         {
+            ViewBag.ClientId = id;
+            complete = true;
+            ViewBag.IsComplete = complete;
+
             var documents = db.Documents.Include(d => d.Client);
             return View(documents.ToList());
         }
@@ -44,9 +48,9 @@ namespace FinalCapstone.Controllers
         }
 
         // GET: Documents/Create
-        public ActionResult Create()
-        {
-            ViewBag.ClientId = new SelectList(db.Clients, "Id", "FirstName");
+        public ActionResult Create(int? id)
+        {            
+            ViewBag.ClientId = id;
             return View();
         }
 
@@ -55,12 +59,16 @@ namespace FinalCapstone.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Subjective,Objective,Assessment,Plan,ClientId")] Document document)
+        public ActionResult Create(int? clientId, Document document)
         {
+           
+            document.ClientId = Convert.ToInt32(clientId);
             if (ModelState.IsValid)
             {
+                document.Id = 0;
                 db.Documents.Add(document);
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 
@@ -89,7 +97,7 @@ namespace FinalCapstone.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Subjective,Objective,Assessment,Plan,ClientId")] Document document)
+        public ActionResult Edit( Document document)
         {
             if (ModelState.IsValid)
             {

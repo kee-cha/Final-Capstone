@@ -7,13 +7,13 @@ namespace FinalCapstone.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class addSelectListProp : IMigrationMetadata
+    public sealed partial class initialMigration : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(addSelectListProp));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(initialMigration));
         
         string IMigrationMetadata.Id
         {
-            get { return "202002022248452_addSelectListProp"; }
+            get { return "202002051919448_initialMigration"; }
         }
         
         string IMigrationMetadata.Source

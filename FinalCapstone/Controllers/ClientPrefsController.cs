@@ -29,20 +29,16 @@ namespace FinalCapstone.Controllers
         }
 
         // GET: ClientPrefs/Details/5
-        public ActionResult Details()
+        public ActionResult Details(int? id)
         {
 
-            var client = db.Clients.Include(c => c.ApplicationUser).Where(c => c.ApplicationId == userId).SingleOrDefault();
+            var thisClient = db.Clients.Include(c => c.ApplicationUser).Where(c => c.ApplicationId == userId).SingleOrDefault();
+            Client client = new Client();
+            if (thisClient == null)
+            {
+                client = db.Clients.Include(c => c.ApplicationUser).Where(c => c.Id == id).Single();
+            } 
             var clientPref = db.ClientPrefs.Where(p => p.ClientId == client.Id).SingleOrDefault();
-            if (userId == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
- 
-            if (clientPref == null)
-            {
-                return HttpNotFound();
-            }
             return View(clientPref);
         }
 

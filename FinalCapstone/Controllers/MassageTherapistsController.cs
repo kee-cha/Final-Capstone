@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -42,12 +43,18 @@ namespace FinalCapstone.Controllers
 
             return View(therapist);
         }
-
+        public ActionResult FilterByToday()
+        {
+            string today = DateTime.Today.ToString();
+            var therapist = db.MassageTherapists.Include(t => t.ApplicationUser).Where(t => t.ApplicationId == userId).SingleOrDefault();
+            var appointments = db.ClientPrefs.Where(p => p.AppointmentDate == today).SingleOrDefault();
+            var todayClient = db.Clients.Include(c => c.ApplicationUser).Where(c => c.Id == appointments.ClientId).ToList();
+            return View(todayClient);
+        }
         public ActionResult MassageAppt()
         {
             var client = db.Clients.Where(c => c.ApplicationId == userId).SingleOrDefault();
-            var pref = db.ClientPrefs.Where(p => p.ClientId == client.Id).SingleOrDefault();
-            var therapists = db.MassageTherapists.Where(t => t.AppointmentDate == pref.AppointmentDate).ToList();
+            var therapists = db.ClientTherapists.Include(t=>t.Client).Include(t=>t.MassageTherapist).Where(t => t.ClientId == client.Id).Select(t=>t.MassageTherapist).ToList();
             return View("Index", therapists);
         }
         public List<MassageTherapist> Filter(List<MassageTherapist> therapists, int id)
@@ -109,7 +116,10 @@ namespace FinalCapstone.Controllers
             model.Client = client;
             var pref = db.ClientPrefs.Where(p => p.ClientId == client.Id).SingleOrDefault();
             model.MassageTherapist = db.MassageTherapists.Include(t => t.ApplicationUser).Where(t => t.Id == id).SingleOrDefault();
-            pref.AppointmentDate = model.ClientPref.AppointmentDate;
+            string date = model.ClientPref.AppointmentDate;
+            DateTime dateFormat = DateTime.ParseExact(date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            string appointmentDate = dateFormat.ToString("MM/dd/yyyy");
+            pref.AppointmentDate = appointmentDate;
             db.SaveChanges();
             return RedirectToAction("MakeAppointment", new { mtId = model.MassageTherapist.Id, cpId = model.ClientPref.Id });
         }
@@ -117,8 +127,9 @@ namespace FinalCapstone.Controllers
         // GET: MassageTherapists/Create
         public ActionResult Create()
         {
+            MTAppointViewModel viewModel = new MTAppointViewModel();
             ViewBag.ApplicationId = new SelectList(db.Users, "Id", "Email");
-            return View();
+            return View(viewModel);
         }
 
         // POST: MassageTherapists/Create
@@ -267,6 +278,10 @@ namespace FinalCapstone.Controllers
                     therapist.AppointmentDate = clientPref.AppointmentDate;
                 }
             }
+            ClientTherapist clientTherapist = new ClientTherapist();
+            clientTherapist.ClientId = client.Id;
+            clientTherapist.TherapistId = therapist.Id;
+            db.ClientTherapists.Add(clientTherapist);
             db.SaveChanges();
             return RedirectToAction("Details", "ClientPrefs");
         }

@@ -4,21 +4,17 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
-
-
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "Documents", new { clientId = ViewBag.ClientId }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>Document</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.Subjective, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Subjective, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.Subjective, new { @cols = "100", @rows = "6", @style = "width:100%;"  })
                 @Html.ValidationMessageFor(model => model.Subjective, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -26,7 +22,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Objective, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Objective, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.Objective, new {  @cols = "100", @rows = "6", @style = "width:100%;"  })
                 @Html.ValidationMessageFor(model => model.Objective, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -34,7 +30,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Assessment, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Assessment, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.Assessment, new {  @cols = "100", @rows = "6", @style = "width:100%;"  })
                 @Html.ValidationMessageFor(model => model.Assessment, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -42,16 +38,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Plan, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Plan, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.Plan, new {  @cols = "100", @rows = "6", @style = "width:100%;"  })
                 @Html.ValidationMessageFor(model => model.Plan, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ClientId, "ClientId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("ClientId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ClientId, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -69,4 +57,13 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(function () {
+            $(".button").on("click", function () {
+                $.post("@Url.Action("Create")").always(function () {
+                    $(".target").load("/Documents/Index");
+                });
+            });
+        });
+    </script>
 }

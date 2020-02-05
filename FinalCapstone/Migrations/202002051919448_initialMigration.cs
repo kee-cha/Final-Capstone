@@ -3,7 +3,7 @@ namespace FinalCapstone.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialMigration : DbMigration
+    public partial class initialMigration : DbMigration
     {
         public override void Up()
         {
@@ -189,6 +189,21 @@ namespace FinalCapstone.Migrations
                 .Index(t => t.ClientId);
             
             CreateTable(
+                "dbo.Reviews",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Comment = c.String(),
+                        ClientId = c.Int(nullable: false),
+                        TherapistId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Clients", t => t.ClientId, cascadeDelete: true)
+                .ForeignKey("dbo.MassageTherapists", t => t.TherapistId, cascadeDelete: true)
+                .Index(t => t.ClientId)
+                .Index(t => t.TherapistId);
+            
+            CreateTable(
                 "dbo.AspNetRoles",
                 c => new
                     {
@@ -203,6 +218,8 @@ namespace FinalCapstone.Migrations
         public override void Down()
         {
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.Reviews", "TherapistId", "dbo.MassageTherapists");
+            DropForeignKey("dbo.Reviews", "ClientId", "dbo.Clients");
             DropForeignKey("dbo.Documents", "ClientId", "dbo.Clients");
             DropForeignKey("dbo.ClientTherapists", "TherapistId", "dbo.MassageTherapists");
             DropForeignKey("dbo.ClientTherapists", "ClientId", "dbo.Clients");
@@ -215,6 +232,8 @@ namespace FinalCapstone.Migrations
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.Reviews", new[] { "TherapistId" });
+            DropIndex("dbo.Reviews", new[] { "ClientId" });
             DropIndex("dbo.Documents", new[] { "ClientId" });
             DropIndex("dbo.ClientTherapists", new[] { "TherapistId" });
             DropIndex("dbo.ClientTherapists", new[] { "ClientId" });
@@ -229,6 +248,7 @@ namespace FinalCapstone.Migrations
             DropIndex("dbo.Appointments", new[] { "TherapistId" });
             DropIndex("dbo.Appointments", new[] { "ClientId" });
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.Reviews");
             DropTable("dbo.Documents");
             DropTable("dbo.ClientTherapists");
             DropTable("dbo.ClientPrefs");

@@ -93,8 +93,13 @@
             @Html.LabelFor(model => model.MassageTherapist.TimeFramePref, htmlAttributes: new { @class = "control-label col-md-2" })
             @Html.DisplayFor(model => model.MassageTherapist.TimeFramePref)
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.MassageTherapist.TimeFramePref, Model.DayPref)
-                @Html.ValidationMessageFor(model => model.MassageTherapist.TimeFramePref, "", new { @class = "text-danger" })
+                @Html.DropDownListFor(model => model.MassageTherapist.TimeFramePref, new List<SelectListItem>
+                    {
+                    new SelectListItem{Text = "Morning", Value = "Morning" },
+                    new SelectListItem{Text = "Afternoon", Value = "Afternoon" },
+                    new SelectListItem{Text = "Evening", Value = "Evening" } },
+                  new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MassageTherapist.TimeFramePref, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">

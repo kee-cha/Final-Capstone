@@ -24,11 +24,19 @@ namespace FinalCapstone.Controllers
             userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
         }
 
-        // GET: Clients
+        //GET: Clients
         public ActionResult Index()
         {
-            var clients = db.Clients.Include(c => c.ApplicationUser);
-            return View(clients.ToList());
+            string today = DateTime.Today.ToString("MM/dd/yyyy");
+            var therapist = db.MassageTherapists.Include(t => t.ApplicationUser).Where(t => t.ApplicationId == userId).SingleOrDefault();
+            var clients = db.ClientTherapists.Include(c => c.Client).Include(c => c.MassageTherapist).Where(c => c.TherapistId == therapist.Id).Select(c => c.Client).ToList();
+            List<Client> pref = new List<Client>();
+            foreach (var item in clients)
+            {
+                var currentPref = db.ClientPrefs.Include(p => p.Client).Where(p => p.AppointmentDate == today&& p.ClientId == item.Id).Select(p=>p.Client).Single();
+                pref.Add(currentPref);
+            }
+            return View(pref);
         }
 
         // GET: Clients/Details/5

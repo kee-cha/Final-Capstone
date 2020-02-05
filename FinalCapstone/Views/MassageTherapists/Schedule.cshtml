@@ -6,7 +6,7 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>MassageTherapist</h4>
+        <h4>@Model.MassageTherapist.FirstName's Schedule</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.MassageTherapist.Id)
@@ -114,12 +114,23 @@
                 }
             }
         }
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Book Appointment Time" class="btn btn-default" />
+        @if (User.IsInRole("Therapist") == true)
+        {
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Set Availibility Time" class="btn btn-default" />
+                </div>
             </div>
-        </div>
+        }
+        @if (User.IsInRole("Client") == true)
+        {
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Book Appointment Time" class="btn btn-default" />
+                </div>
+            </div>
+        }
+
     </div>
 }
 

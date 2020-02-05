@@ -181,45 +181,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="GoogleMapKey.cs" />
-    <Compile Include="Migrations\202001312103289_InitialMigration.cs" />
-    <Compile Include="Migrations\202001312103289_InitialMigration.Designer.cs">
-      <DependentUpon>202001312103289_InitialMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202002020411468_MadeClientPrefVM.cs" />
-    <Compile Include="Migrations\202002020411468_MadeClientPrefVM.Designer.cs">
-      <DependentUpon>202002020411468_MadeClientPrefVM.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202002022248452_addSelectListProp.cs" />
-    <Compile Include="Migrations\202002022248452_addSelectListProp.Designer.cs">
-      <DependentUpon>202002022248452_addSelectListProp.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202002022300299_addNewPropInVM.cs" />
-    <Compile Include="Migrations\202002022300299_addNewPropInVM.Designer.cs">
-      <DependentUpon>202002022300299_addNewPropInVM.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202002030031453_addGeoModel.cs" />
-    <Compile Include="Migrations\202002030031453_addGeoModel.Designer.cs">
-      <DependentUpon>202002030031453_addGeoModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202002031755057_addPropToVm.cs" />
-    <Compile Include="Migrations\202002031755057_addPropToVm.Designer.cs">
-      <DependentUpon>202002031755057_addPropToVm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202002031947396_addPrefPropToVM.cs" />
-    <Compile Include="Migrations\202002031947396_addPrefPropToVM.Designer.cs">
-      <DependentUpon>202002031947396_addPrefPropToVM.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202002032127562_addDayPrefToVm.cs" />
-    <Compile Include="Migrations\202002032127562_addDayPrefToVm.Designer.cs">
-      <DependentUpon>202002032127562_addDayPrefToVm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202002041905153_addReviewModel.cs" />
-    <Compile Include="Migrations\202002041905153_addReviewModel.Designer.cs">
-      <DependentUpon>202002041905153_addReviewModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202002041942397_newMigration.cs" />
-    <Compile Include="Migrations\202002041942397_newMigration.Designer.cs">
-      <DependentUpon>202002041942397_newMigration.cs</DependentUpon>
+    <Compile Include="Migrations\202002051919448_initialMigration.cs" />
+    <Compile Include="Migrations\202002051919448_initialMigration.Designer.cs">
+      <DependentUpon>202002051919448_initialMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -346,35 +310,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202001312103289_InitialMigration.resx">
-      <DependentUpon>202001312103289_InitialMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202002020411468_MadeClientPrefVM.resx">
-      <DependentUpon>202002020411468_MadeClientPrefVM.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202002022248452_addSelectListProp.resx">
-      <DependentUpon>202002022248452_addSelectListProp.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202002022300299_addNewPropInVM.resx">
-      <DependentUpon>202002022300299_addNewPropInVM.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202002030031453_addGeoModel.resx">
-      <DependentUpon>202002030031453_addGeoModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202002031755057_addPropToVm.resx">
-      <DependentUpon>202002031755057_addPropToVm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202002031947396_addPrefPropToVM.resx">
-      <DependentUpon>202002031947396_addPrefPropToVM.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202002032127562_addDayPrefToVm.resx">
-      <DependentUpon>202002032127562_addDayPrefToVm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202002041905153_addReviewModel.resx">
-      <DependentUpon>202002041905153_addReviewModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202002041942397_newMigration.resx">
-      <DependentUpon>202002041942397_newMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202002051919448_initialMigration.resx">
+      <DependentUpon>202002051919448_initialMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
