@@ -7,13 +7,19 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FinalCapstone.Models;
+using Microsoft.AspNet.Identity;
 
 namespace FinalCapstone.Controllers
 {
     public class DocumentsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
-
+        private ApplicationDbContext db;
+        private string userId;
+        public DocumentsController()
+        {
+            db = new ApplicationDbContext();
+            userId = System.Web.HttpContext.Current.User.Identity.GetUserId(); 
+        }
         // GET: Documents
         public ActionResult Index()
         {

@@ -16,7 +16,13 @@ namespace FinalCapstone.Controllers
 {
     public class ClientsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationDbContext db;
+        private string userId;
+        public ClientsController()
+        {
+            db = new ApplicationDbContext();
+            userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+        }
 
         // GET: Clients
         public ActionResult Index()
@@ -28,7 +34,6 @@ namespace FinalCapstone.Controllers
         // GET: Clients/Details/5
         public ActionResult Details(int? id)
         {
-            var userId = User.Identity.GetUserId();
             Client client = null;
             if (id == null)
             {
@@ -62,8 +67,8 @@ namespace FinalCapstone.Controllers
         public async Task<ActionResult> Create(Client client)
         {
             if (ModelState.IsValid)
-            {                
-                client.ApplicationId =  User.Identity.GetUserId();
+            {
+                client.ApplicationId = userId;
                 await GetClientCoord(client);
                 db.Clients.Add(client);
                 db.SaveChanges();

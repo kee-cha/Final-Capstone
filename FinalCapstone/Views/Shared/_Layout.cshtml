@@ -28,6 +28,7 @@
                     {                    
                         <li>@Html.ActionLink("Profile", "Details", "Clients")</li>
                         <li>@Html.ActionLink("Massage Therapists", "Index", "MassageTherapists")</li>
+                        <li>@Html.ActionLink("My Appointments", "MassageAppt","MassageTherapists")</li>
                     }
                     @if (User.IsInRole("Therapist") == true)
                     {

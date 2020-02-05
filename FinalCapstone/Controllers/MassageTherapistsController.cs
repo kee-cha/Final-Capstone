@@ -16,12 +16,18 @@ namespace FinalCapstone.Controllers
 {
     public class MassageTherapistsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationDbContext db;
+        private string userId;
+        public MassageTherapistsController()
+        {
+            db = new ApplicationDbContext();
+            userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+        }
 
         // GET: MassageTherapists
         public ActionResult Index(bool? interest, bool? location)
         {
-            var userId = User.Identity.GetUserId();
+            
             var therapist = db.MassageTherapists.Include(m => m.ApplicationUser).ToList();
             var client = db.Clients.Where(c => c.ApplicationId == userId).SingleOrDefault();
             if (location == true)
@@ -37,6 +43,13 @@ namespace FinalCapstone.Controllers
             return View(therapist);
         }
 
+        public ActionResult MassageAppt()
+        {
+            var client = db.Clients.Where(c => c.ApplicationId == userId).SingleOrDefault();
+            var pref = db.ClientPrefs.Where(p => p.ClientId == client.Id).SingleOrDefault();
+            var therapists = db.MassageTherapists.Where(t => t.AppointmentDate == pref.AppointmentDate).ToList();
+            return View("Index", therapists);
+        }
         public List<MassageTherapist> Filter(List<MassageTherapist> therapists, int id)
         {
             List<MassageTherapist> therapist = null;
@@ -68,7 +81,6 @@ namespace FinalCapstone.Controllers
         // GET: MassageTherapists/Details/5
         public ActionResult Details(int? id, MTAppointViewModel viewModel)
         {
-            var userId = User.Identity.GetUserId();
             MassageTherapist therapist = null;
 
             if (id != null)
@@ -93,7 +105,6 @@ namespace FinalCapstone.Controllers
         [HttpPost]
         public ActionResult Details(int? id, MTAppointViewModel model, string name)
         {            
-            var userId = User.Identity.GetUserId();
             var client = db.Clients.Where(c => c.ApplicationId == userId).SingleOrDefault();
             model.Client = client;
             var pref = db.ClientPrefs.Where(p => p.ClientId == client.Id).SingleOrDefault();
@@ -120,7 +131,7 @@ namespace FinalCapstone.Controllers
             var session = Convert.ToInt32(massageTherapist.SessionPerDay);
             if (ModelState.IsValid)
             {
-                massageTherapist.ApplicationId = User.Identity.GetUserId();
+                massageTherapist.ApplicationId = userId;
                 await GetCoord(massageTherapist);
                 db.MassageTherapists.Add(massageTherapist);
                 db.SaveChanges();
@@ -206,7 +217,6 @@ namespace FinalCapstone.Controllers
         public ActionResult MakeAppointment(int? mtId, int? cpId)
         {
             MTAppointViewModel model = new MTAppointViewModel();
-            var userId = User.Identity.GetUserId();
             model.Client = db.Clients.Where(c => c.ApplicationId == userId).SingleOrDefault();
             model.ClientPref = db.ClientPrefs.Where(p => p.Id==cpId).SingleOrDefault();
             model.MassageTherapist = db.MassageTherapists.Where(t => t.Id == mtId).SingleOrDefault();
@@ -217,7 +227,6 @@ namespace FinalCapstone.Controllers
         [HttpPost]
         public ActionResult MakeAppointment(MTAppointViewModel viewModel)
         {
-            var userId = User.Identity.GetUserId();
             var client = db.Clients.Include(c => c.ApplicationUser).Where(c => c.ApplicationId == userId).SingleOrDefault();
             var therapist = db.MassageTherapists.Include(t => t.ApplicationUser).Where(t => t.Id == viewModel.MassageTherapist.Id).SingleOrDefault();
             var clientPref = db.ClientPrefs.Include(c => c.Client).Where(c => c.ClientId == client.Id).SingleOrDefault();
@@ -265,7 +274,6 @@ namespace FinalCapstone.Controllers
         {
             MTAppointViewModel viewModel = new MTAppointViewModel();
             viewModel.MassageTherapist = db.MassageTherapists.Include(t => t.ApplicationUser).Where(t => t.Id == id).SingleOrDefault();
-            var userId = User.Identity.GetUserId();
             var client = db.Clients.Where(c => c.ApplicationId == userId).SingleOrDefault();
             var pref = db.ClientPrefs.Where(p => p.ClientId == client.Id).SingleOrDefault();
             viewModel.ClientPref = pref;

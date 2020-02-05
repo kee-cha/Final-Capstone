@@ -13,7 +13,13 @@ namespace FinalCapstone.Controllers
 {
     public class ClientPrefsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationDbContext db;
+        private string userId;
+        public ClientPrefsController()
+        {
+            db = new ApplicationDbContext();
+            userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+        }
 
         // GET: ClientPrefs
         public ActionResult Index()
@@ -25,10 +31,10 @@ namespace FinalCapstone.Controllers
         // GET: ClientPrefs/Details/5
         public ActionResult Details()
         {
-            var id = User.Identity.GetUserId();
-            var client = db.Clients.Include(c => c.ApplicationUser).Where(c => c.ApplicationId == id).SingleOrDefault();
+
+            var client = db.Clients.Include(c => c.ApplicationUser).Where(c => c.ApplicationId == userId).SingleOrDefault();
             var clientPref = db.ClientPrefs.Where(p => p.ClientId == client.Id).SingleOrDefault();
-            if (id == null)
+            if (userId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -54,7 +60,6 @@ namespace FinalCapstone.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(ClientPref clientPref)
         {
-            var userId = User.Identity.GetUserId();
             var client = db.Clients.Where(c => c.ApplicationId == userId).SingleOrDefault();
             if (ModelState.IsValid)
             {
@@ -72,7 +77,6 @@ namespace FinalCapstone.Controllers
         public ActionResult Edit(int? id)
         {
             ClientPrefViewModel viewModel = new ClientPrefViewModel();
-            var userId = User.Identity.GetUserId();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

@@ -41,5 +41,7 @@ namespace FinalCapstone.Models
         public System.Data.Entity.DbSet<FinalCapstone.Models.ClientPref> ClientPrefs { get; set; }
         
         public System.Data.Entity.DbSet<FinalCapstone.Models.Appointment> Appointments { get; set; }
+
+        public System.Data.Entity.DbSet<FinalCapstone.Models.Review> Reviews { get; set; }
     }
 }
