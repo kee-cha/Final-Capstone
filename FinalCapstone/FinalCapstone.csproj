@@ -181,9 +181,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="GoogleMapKey.cs" />
-    <Compile Include="Migrations\202002051919448_initialMigration.cs" />
-    <Compile Include="Migrations\202002051919448_initialMigration.Designer.cs">
-      <DependentUpon>202002051919448_initialMigration.cs</DependentUpon>
+    <Compile Include="Migrations\202002070415495_initialMigration.cs" />
+    <Compile Include="Migrations\202002070415495_initialMigration.Designer.cs">
+      <DependentUpon>202002070415495_initialMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -195,6 +195,7 @@
     <Compile Include="Models\Document.cs" />
     <Compile Include="Models\GeoModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\InjuryViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MassageTherapist.cs" />
     <Compile Include="Models\MTAppointViewModel.cs" />
@@ -292,6 +293,7 @@
     <Content Include="Views\Reviews\Details.cshtml" />
     <Content Include="Views\Reviews\Edit.cshtml" />
     <Content Include="Views\Reviews\Index.cshtml" />
+    <Content Include="Views\Clients\Injury.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -310,8 +312,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202002051919448_initialMigration.resx">
-      <DependentUpon>202002051919448_initialMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202002070415495_initialMigration.resx">
+      <DependentUpon>202002070415495_initialMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

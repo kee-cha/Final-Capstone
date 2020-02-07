@@ -26,7 +26,7 @@ namespace FinalCapstone.Controllers
         }
 
         // GET: MassageTherapists
-        public ActionResult Index(bool? interest, bool? location)
+        public ActionResult Index(bool? interest, bool? location, bool? Morning, bool? AFternoon, bool? Evening)
         {
             
             var therapist = db.MassageTherapists.Include(m => m.ApplicationUser).ToList();
@@ -35,12 +35,22 @@ namespace FinalCapstone.Controllers
             {
                 therapist = FilterByLocation(therapist, client.Id);
             }
-
             if (interest == true)
             {
                 therapist = Filter(therapist, client.Id);
             }
-
+            if (Morning == true)
+            {
+                therapist = FilterByDayPref(therapist, "Morning");
+            }
+            if (AFternoon == true)
+            {
+                therapist = FilterByDayPref(therapist, "Afternoon");
+            }
+            if (Evening == true)
+            {
+                therapist = FilterByDayPref(therapist, "Evening");
+            }
             return View(therapist);
         }
         public ActionResult FilterByToday()
@@ -57,19 +67,11 @@ namespace FinalCapstone.Controllers
             var therapists = db.ClientTherapists.Include(t=>t.Client).Include(t=>t.MassageTherapist).Where(t => t.ClientId == client.Id).Select(t=>t.MassageTherapist).ToList();
             return View("Index", therapists);
         }
+        #region Client Filter
         public List<MassageTherapist> Filter(List<MassageTherapist> therapists, int id)
         {
             List<MassageTherapist> therapist = null;
             var pref = db.ClientPrefs.Where(p => p.ClientId == id).SingleOrDefault();
-            //if (therapists == null)
-            //{
-            //     therapist = therapists.Where(m => m.Gender == pref.TherapistGender && m.Specialty == pref.TherapistSpecialty).ToList();
-            //    return therapist;
-            //}
-            if (true)
-            {
-
-            }
             therapist = therapists.Where(m => m.Gender == pref.TherapistGender && m.Specialty == pref.TherapistSpecialty).ToList();
             return therapist;
         }
@@ -77,14 +79,15 @@ namespace FinalCapstone.Controllers
         public List<MassageTherapist> FilterByLocation(List<MassageTherapist> therapist, int id)
         {
             var client = db.Clients.Where(c => c.Id == id).SingleOrDefault();
-            if (therapist == null)
-            {
-                var therapists = db.MassageTherapists.Where(t => t.Zip == client.Zip).ToList();
-                return therapists;
-            }
-            therapist = db.MassageTherapists.Where(m => m.Zip == client.Zip).ToList();
+            therapist = therapist.Where(m => m.Zip == client.Zip).ToList();
             return therapist;
         }
+        public List<MassageTherapist> FilterByDayPref(List<MassageTherapist> therapists, string time)
+        {
+            therapists = therapists.Where(t => t.TimeFramePref == time).ToList();
+            return therapists;
+        }
+        #endregion
         // GET: MassageTherapists/Details/5
         public ActionResult Details(int? id, MTAppointViewModel viewModel)
         {
@@ -123,7 +126,16 @@ namespace FinalCapstone.Controllers
             db.SaveChanges();
             return RedirectToAction("MakeAppointment", new { mtId = model.MassageTherapist.Id, cpId = model.ClientPref.Id });
         }
+        public ActionResult CompleteAppt(int? id, bool? complete)
+        {           
+            var therapist = db.MassageTherapists.Include(t => t.ApplicationUser).Where(t => t.ApplicationId == userId).SingleOrDefault();
+            var pref = db.ClientPrefs.Include(p => p.Client).Where(p => p.Id == id).SingleOrDefault();
+            pref.AppointmentDate = null;
+            pref.AppointmentTime = null;
+            db.SaveChanges();
+            return RedirectToAction("Details", "Clients", complete);
 
+        }
         // GET: MassageTherapists/Create
         public ActionResult Create()
         {
@@ -192,11 +204,24 @@ namespace FinalCapstone.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(MassageTherapist massageTherapist)
+        public async Task<ActionResult> Edit(MassageTherapist massageTherapist)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(massageTherapist).State = EntityState.Modified;
+                var therapist = db.MassageTherapists.Include(t => t.ApplicationUser).Where(t => t.ApplicationId == userId).SingleOrDefault();
+                therapist.FirstName = massageTherapist.FirstName;
+                therapist.LastName = massageTherapist.LastName;
+                if (therapist.Street != massageTherapist.Street || therapist.City != massageTherapist.City || therapist.State != massageTherapist.State || therapist.Zip != massageTherapist.Zip)
+                {
+                    await GetCoord(massageTherapist);
+                }
+                therapist.Street = massageTherapist.Street;
+                therapist.City = massageTherapist.City;
+                therapist.State = massageTherapist.State;
+                therapist.Zip = massageTherapist.Zip;
+                therapist.TimeFramePref = massageTherapist.TimeFramePref;
+                therapist.Specialty = massageTherapist.Specialty;
+                therapist.SessionPerDay = massageTherapist.SessionPerDay;                
                 db.SaveChanges();
                 return RedirectToAction("Details");
             }
@@ -208,7 +233,7 @@ namespace FinalCapstone.Controllers
         {
             MTAppointViewModel viewModel = new MTAppointViewModel();
             viewModel.MassageTherapist = db.MassageTherapists.Where(t => t.Id == id).SingleOrDefault();
-            viewModel.DayPref = new SelectList(new List<string> { "Morning", "Afternoon", "Evening" });
+           
             viewModel.SetTime = new SelectList(new List<string>() { "7:00 AM", "8:00 AM", "9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM", "7:00 PM", "8:00 PM", "9:00 PM", "10:00 PM" });
             return View("Schedule", viewModel);
         }
@@ -247,7 +272,6 @@ namespace FinalCapstone.Controllers
                 {
                     therapist.IsOpen1 = true;
                     clientPref.AppointmentTime = therapist.Schedule1;
-
                     therapist.AppointmentDate = clientPref.AppointmentDate;
                 }
             }

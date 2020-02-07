@@ -11,9 +11,13 @@ namespace FinalCapstone.Models
     {
         [Key]
         public int Id { get; set; }
+        [Required]
         public string Subjective { get; set; }
+        [Required]
         public string Objective { get; set; }
+        [Required]
         public string Assessment { get; set; }
+        [Required]
         public string Plan { get; set; }
         [ForeignKey("Client")]
         public int ClientId { get; set; }

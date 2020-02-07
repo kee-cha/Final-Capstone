@@ -164,10 +164,11 @@ namespace FinalCapstone.Migrations
                 "dbo.ClientTherapists",
                 c => new
                     {
+                        Id = c.Int(nullable: false, identity: true),
                         ClientId = c.Int(nullable: false),
                         TherapistId = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => new { t.ClientId, t.TherapistId })
+                .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Clients", t => t.ClientId, cascadeDelete: true)
                 .ForeignKey("dbo.MassageTherapists", t => t.TherapistId, cascadeDelete: true)
                 .Index(t => t.ClientId)
@@ -178,10 +179,10 @@ namespace FinalCapstone.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Subjective = c.String(),
-                        Objective = c.String(),
-                        Assessment = c.String(),
-                        Plan = c.String(),
+                        Subjective = c.String(nullable: false),
+                        Objective = c.String(nullable: false),
+                        Assessment = c.String(nullable: false),
+                        Plan = c.String(nullable: false),
                         ClientId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)

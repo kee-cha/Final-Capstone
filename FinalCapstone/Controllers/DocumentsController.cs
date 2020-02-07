@@ -24,13 +24,40 @@ namespace FinalCapstone.Controllers
         public ActionResult Index(int? id, bool? complete )
         {
             ViewBag.ClientId = id;
-            complete = true;
+          
             ViewBag.IsComplete = complete;
 
             var documents = db.Documents.Include(d => d.Client);
             return View(documents.ToList());
         }
+        [HttpPost]
+        public ActionResult Index(int? id, int? clientId, Document document)
+        {
+            if (ModelState.IsValid)
+            {
+                var therapist = db.Clients.Include(c => c.ApplicationUser).Where(c => c.ApplicationId == userId).SingleOrDefault();
+                var client = db.Clients.Include(t => t.ApplicationUser).Where(t => t.Id == id).SingleOrDefault();
+                if (therapist == null)
+                {
+                    client = db.Clients.Include(t => t.ApplicationUser).Where(t => t.Id == clientId).SingleOrDefault();
+                    var soap = db.Documents.Include(c => c.Client.ApplicationUser).Where(s => s.Id == id).SingleOrDefault();
+                    soap.Subjective = document.Subjective;
+                    soap.Objective = document.Objective;
+                    soap.Assessment = document.Assessment;
+                    soap.Plan = document.Plan;
+                    db.SaveChanges();
+                }
+                else
+                {
+                    document.ClientId = client.Id;                    
+                    db.Documents.Add(document);
+                    db.SaveChanges();
+                }
 
+                return RedirectToAction("Index", new { id = document.ClientId });
+            }
+            return View(document);
+        }
         // GET: Documents/Details/5
         public ActionResult Details(int? id)
         {
@@ -73,12 +100,12 @@ namespace FinalCapstone.Controllers
             }
 
             ViewBag.ClientId = new SelectList(db.Clients, "Id", "FirstName", document.ClientId);
-            return View(document);
+            return RedirectToAction("Details","Clients", document);
         }
 
         // GET: Documents/Edit/5
         public ActionResult Edit(int? id)
-        {
+        {           
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -89,7 +116,7 @@ namespace FinalCapstone.Controllers
                 return HttpNotFound();
             }
             ViewBag.ClientId = new SelectList(db.Clients, "Id", "FirstName", document.ClientId);
-            return View(document);
+            return View("Details", document);
         }
 
         // POST: Documents/Edit/5
@@ -97,17 +124,22 @@ namespace FinalCapstone.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit( Document document)
+        public ActionResult Edit(int? id, Document document)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(document).State = EntityState.Modified;
+                var soap = db.Documents.Include(d=>d.Client.ApplicationUser).Where(d => d.Id == id).SingleOrDefault();
+                soap.Subjective = document.Subjective;
+                soap.Objective = document.Objective;
+                soap.Assessment = document.Assessment;
+                soap.Plan = document.Plan;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id = document.ClientId });
             }
             ViewBag.ClientId = new SelectList(db.Clients, "Id", "FirstName", document.ClientId);
-            return View(document);
+            return View("Details",document);
         }
+
 
         // GET: Documents/Delete/5
         public ActionResult Delete(int? id)

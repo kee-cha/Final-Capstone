@@ -117,8 +117,7 @@ namespace FinalCapstone.Controllers
         public ActionResult Edit(int? id, Review review)
         {
             if (ModelState.IsValid)
-            {
- 
+            { 
                 var comment = db.Reviews.Include(c => c.Client.ApplicationUser).Where(c => c.Id == id).SingleOrDefault();
                 comment.Comment = review.Comment;
                 db.SaveChanges();

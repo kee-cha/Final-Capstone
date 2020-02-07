@@ -29,30 +29,77 @@ namespace FinalCapstone.Controllers
         {
             string today = DateTime.Today.ToString("MM/dd/yyyy");
             var therapist = db.MassageTherapists.Include(t => t.ApplicationUser).Where(t => t.ApplicationId == userId).SingleOrDefault();
-            var clients = db.ClientTherapists.Include(c => c.Client).Include(c => c.MassageTherapist).Where(c => c.TherapistId == therapist.Id).Select(c => c.Client).ToList();
-            List<Client> pref = new List<Client>();
+            var clients = db.ClientTherapists.Include(c => c.Client.ApplicationUser).Include(c => c.Client).Include(c => c.MassageTherapist).Where(c => c.TherapistId == therapist.Id).Select(c => c.Client).ToList();
+            List<Client> client = new List<Client>();
             foreach (var item in clients)
             {
-                var currentPref = db.ClientPrefs.Include(p => p.Client).Where(p => p.AppointmentDate == today&& p.ClientId == item.Id).Select(p=>p.Client).Single();
-                pref.Add(currentPref);
+                var currentPref = db.ClientPrefs.Include(p => p.Client).Where(p => p.ClientId == item.Id).Single();
+                if (currentPref.AppointmentDate == today)
+                {
+                    client.Add(item);
+                }
             }
-            return View(pref);
+            return View(client);
         }
 
+        public async Task<ActionResult> GetInjuryInfo()
+        {
+            InjuryViewModel[] injury = null;
+            InjuryViewModel pain = null;
+            List<InjuryViewModel> injuries = new List<InjuryViewModel>();
+            var thisClient = db.Clients.Include(c => c.ApplicationUser).Where(c => c.ApplicationId == userId).SingleOrDefault();
+            var pref = db.ClientPrefs.Include(p => p.Client.ApplicationUser).Where(p => p.ClientId == thisClient.Id).SingleOrDefault();
+            HttpClient client = new HttpClient();
+            string url = "https://localhost:44333/api/Injuries";
+            HttpResponseMessage response = await client.GetAsync(url);
+            string jsonResult = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+            {
+                injury = JsonConvert.DeserializeObject<InjuryViewModel[]>(jsonResult);
+                foreach (var item in injury)
+                {
+                    if ((pref.HeadPain == true || pref.NeckPain == true) && item.InjuryLocation == "Head")
+                    {
+                        injuries.Add(item);
+                    }
+                    else if ((pref.ShoulderPain == true || pref.ArmPain == true || pref.WristHandPain == true) && item.InjuryLocation == "Arm")
+                    {
+                        injuries.Add(item);
+                    }
+                    else if ((pref.UpperBackPain == true || pref.LowBackPain == true) && item.InjuryLocation == "Back")
+                    {
+                        injuries.Add(item);
+                    }
+                    else if ((pref.HipPain == true) && item.InjuryLocation == "Hip")
+                    {
+                        injuries.Add(item);
+                    }
+                    else if ((pref.ThighPain == true || pref.KneeLegPain == true || pref.AnkleFootPain == true) && item.InjuryLocation == "Leg")
+                    {
+                        injuries.Add(item);
+                    }
+                }
+            }
+            return View("Injury", injuries);
+        }
         // GET: Clients/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id, bool? complete, bool? isTrue)
         {
             Client client = null;
+            ViewBag.IsTrue = isTrue;
+            ViewBag.IsComplete = complete;
+
             if (id == null)
             {
                 client = db.Clients.Include(c => c.ApplicationUser).Where(c => c.ApplicationId == userId).SingleOrDefault();
-
+                var pref = db.ClientPrefs.Where(p => p.ClientId == client.Id).SingleOrDefault();
+                ViewBag.MyPref = pref;
             }
             else
             {
                 client = db.Clients.Find(id);
             }
-            
+
             if (client == null)
             {
                 return HttpNotFound();
@@ -80,7 +127,7 @@ namespace FinalCapstone.Controllers
                 await GetClientCoord(client);
                 db.Clients.Add(client);
                 db.SaveChanges();
-                return RedirectToAction("Create","ClientPrefs");
+                return RedirectToAction("Create", "ClientPrefs");
             }
 
             ViewBag.ApplicationId = new SelectList(db.Users, "Id", "Email", client.ApplicationId);
@@ -126,7 +173,7 @@ namespace FinalCapstone.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit( Client client)
+        public ActionResult Edit(Client client)
         {
             if (ModelState.IsValid)
             {
@@ -159,9 +206,11 @@ namespace FinalCapstone.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Client client = db.Clients.Find(id);
+            var user = db.Users.Where(u => u.Id == userId).SingleOrDefault();
+            db.Users.Remove(user);
             db.Clients.Remove(client);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("LogOut", "Home");
         }
 
         protected override void Dispose(bool disposing)

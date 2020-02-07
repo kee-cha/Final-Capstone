@@ -147,8 +147,9 @@
 @if (User.IsInRole("Therapist") == true)
 {
     <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Edit Profile", "Edit", new { id = Model.Id }) |
         @Html.ActionLink("Set Availibility", "SetSchedule", new { id = Model.Id }) |
+        @Html.ActionLink("Delete Profile", "Delete", new { id = Model.Id })
     </p>
 
 }

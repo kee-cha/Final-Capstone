@@ -69,8 +69,17 @@
 
     </dl>
 </div>
+
 <div>
     <p>
         @{Html.RenderAction("Details", "ClientPrefs", new { id = Model.Id }); }
     </p>
 </div>
+@if (User.IsInRole("Therapist") == true)
+{
+    <div>
+        @{ Html.RenderAction("Index", "Documents", new { id = Model.Id }); }
+    </div>
+
+}
+

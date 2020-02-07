@@ -11,6 +11,7 @@ namespace FinalCapstone.Models
         public SelectList SetTime { get; set; }
         public SelectList DayPref { get; set; }
         public MassageTherapist MassageTherapist { get; set; }
+        public List<MassageTherapist> MtList { get; set; }
         public Client Client { get; set; }
         public ClientPref ClientPref { get; set; }
 

@@ -67,120 +67,14 @@
             @Html.ValidationMessageFor(model => model.Client.Zip, "", new { @class = "text-danger" })
         </div>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.ClientPref.HeadPain, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <div class="checkbox">
-                @Html.EditorFor(model => model.ClientPref.HeadPain)
-                @Html.ValidationMessageFor(model => model.ClientPref.HeadPain, "", new { @class = "text-danger" })
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.ClientPref.NeckPain, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <div class="checkbox">
-                @Html.EditorFor(model => model.ClientPref.NeckPain)
-                @Html.ValidationMessageFor(model => model.ClientPref.NeckPain, "", new { @class = "text-danger" })
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.ClientPref.UpperBackPain, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <div class="checkbox">
-                @Html.EditorFor(model => model.ClientPref.UpperBackPain)
-                @Html.ValidationMessageFor(model => model.ClientPref.UpperBackPain, "", new { @class = "text-danger" })
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.ClientPref.LowBackPain, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <div class="checkbox">
-                @Html.EditorFor(model => model.ClientPref.LowBackPain)
-                @Html.ValidationMessageFor(model => model.ClientPref.LowBackPain, "", new { @class = "text-danger" })
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.ClientPref.ShoulderPain, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <div class="checkbox">
-                @Html.EditorFor(model => model.ClientPref.ShoulderPain)
-                @Html.ValidationMessageFor(model => model.ClientPref.ShoulderPain, "", new { @class = "text-danger" })
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.ClientPref.ArmPain, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <div class="checkbox">
-                @Html.EditorFor(model => model.ClientPref.ArmPain)
-                @Html.ValidationMessageFor(model => model.ClientPref.ArmPain, "", new { @class = "text-danger" })
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.ClientPref.WristHandPain, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <div class="checkbox">
-                @Html.EditorFor(model => model.ClientPref.WristHandPain)
-                @Html.ValidationMessageFor(model => model.ClientPref.WristHandPain, "", new { @class = "text-danger" })
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.ClientPref.HipPain, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <div class="checkbox">
-                @Html.EditorFor(model => model.ClientPref.HipPain)
-                @Html.ValidationMessageFor(model => model.ClientPref.HipPain, "", new { @class = "text-danger" })
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.ClientPref.ThighPain, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <div class="checkbox">
-                @Html.EditorFor(model => model.ClientPref.ThighPain)
-                @Html.ValidationMessageFor(model => model.ClientPref.ThighPain, "", new { @class = "text-danger" })
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.ClientPref.KneeLegPain, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <div class="checkbox">
-                @Html.EditorFor(model => model.ClientPref.KneeLegPain)
-                @Html.ValidationMessageFor(model => model.ClientPref.KneeLegPain, "", new { @class = "text-danger" })
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.ClientPref.AnkleFootPain, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <div class="checkbox">
-                @Html.EditorFor(model => model.ClientPref.AnkleFootPain)
-                @Html.ValidationMessageFor(model => model.ClientPref.AnkleFootPain, "", new { @class = "text-danger" })
-            </div>
-        </div>
-    </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.ClientPref.TherapistGender, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.ClientPref.TherapistGender, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.DropDownListFor(model => model.ClientPref.TherapistGender, new List<SelectListItem>{
+           new SelectListItem{Text = "Male", Value = "Male" },
+           new SelectListItem{Text = "Female", Value = "Female" } }, "--Choose Gender--",
+            new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.ClientPref.TherapistGender, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -188,10 +82,138 @@
     <div class="form-group">
         @Html.LabelFor(model => model.ClientPref.TherapistSpecialty, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.ClientPref.TherapistSpecialty, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.DropDownListFor(model => model.ClientPref.TherapistSpecialty, new List<SelectListItem>{
+           new SelectListItem{Text = "Swedish", Value = "Swedish" },
+           new SelectListItem{Text = "Reflecology", Value = "Reflexology" },
+           new SelectListItem{Text = "Prenatal", Value = "Prenatal" },
+           new SelectListItem{Text = "Neuromuscular", Value = "Neuromuscular" },
+           new SelectListItem{Text = "Craniosacral", Value = "Craniosacral" },
+           new SelectListItem{Text = "Deep Tissue", Value = "Deep Tissue" } }, "--Choose Specialty--",
+            new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.ClientPref.TherapistSpecialty, "", new { @class = "text-danger" })
         </div>
     </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <h4>Upper Body</h4>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ClientPref.HeadPain, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10" align="center">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.ClientPref.HeadPain)
+                            @Html.ValidationMessageFor(model => model.ClientPref.HeadPain, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ClientPref.NeckPain, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10" align="center">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.ClientPref.NeckPain)
+                            @Html.ValidationMessageFor(model => model.ClientPref.NeckPain, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ClientPref.UpperBackPain, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10" align="center">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.ClientPref.UpperBackPain)
+                            @Html.ValidationMessageFor(model => model.ClientPref.UpperBackPain, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ClientPref.LowBackPain, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10" align="center">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.ClientPref.LowBackPain)
+                            @Html.ValidationMessageFor(model => model.ClientPref.LowBackPain, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ClientPref.ShoulderPain, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10" align="center">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.ClientPref.ShoulderPain)
+                            @Html.ValidationMessageFor(model => model.ClientPref.ShoulderPain, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ClientPref.ArmPain, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10" align="center">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.ClientPref.ArmPain)
+                            @Html.ValidationMessageFor(model => model.ClientPref.ArmPain, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ClientPref.WristHandPain, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10" align="center">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.ClientPref.WristHandPain)
+                            @Html.ValidationMessageFor(model => model.ClientPref.WristHandPain, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <h4>Lower Body</h4>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ClientPref.HipPain, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div class="checkbox" align="center">
+                            @Html.EditorFor(model => model.ClientPref.HipPain)
+                            @Html.ValidationMessageFor(model => model.ClientPref.HipPain, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ClientPref.ThighPain, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10" align="center">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.ClientPref.ThighPain)
+                            @Html.ValidationMessageFor(model => model.ClientPref.ThighPain, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ClientPref.KneeLegPain, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10" align="center">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.ClientPref.KneeLegPain)
+                            @Html.ValidationMessageFor(model => model.ClientPref.KneeLegPain, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ClientPref.AnkleFootPain, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10" align="center">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.ClientPref.AnkleFootPain)
+                            @Html.ValidationMessageFor(model => model.ClientPref.AnkleFootPain, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6"></div>
+        </div>
+    </div>
+
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
@@ -202,7 +224,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to Profile", "Details", "Clients", new { id = Model.Client.Id, complete = "", isTrue = "" },"")
 </div>
 
 @section Scripts {

@@ -33,12 +33,12 @@ namespace FinalCapstone.Controllers
         {
 
             var thisClient = db.Clients.Include(c => c.ApplicationUser).Where(c => c.ApplicationId == userId).SingleOrDefault();
-            Client client = new Client();
+            
             if (thisClient == null)
             {
-                client = db.Clients.Include(c => c.ApplicationUser).Where(c => c.Id == id).Single();
+                thisClient = db.Clients.Include(c => c.ApplicationUser).Where(c => c.Id == id).Single();
             } 
-            var clientPref = db.ClientPrefs.Where(p => p.ClientId == client.Id).SingleOrDefault();
+            var clientPref = db.ClientPrefs.Where(p => p.ClientId == thisClient.Id).SingleOrDefault();
             return View(clientPref);
         }
 
@@ -94,7 +94,7 @@ namespace FinalCapstone.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ClientPrefViewModel viewModel)
         {
-        
+            viewModel.Client.ApplicationId = userId;
             Client client = viewModel.Client;
 
             ClientPref clientPref = viewModel.ClientPref;
@@ -106,10 +106,10 @@ namespace FinalCapstone.Controllers
                 db.Entry(client).State = EntityState.Modified;
                 db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Clients", viewModel);
             }
             ViewBag.ClientId = new SelectList(db.Clients, "Id", "FirstName", viewModel.ClientPref.ClientId);
-            return View(viewModel);
+            return RedirectToAction("Details", "Clients",viewModel);
         }
 
         // GET: ClientPrefs/Delete/5

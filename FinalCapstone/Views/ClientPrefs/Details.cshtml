@@ -149,20 +149,16 @@
 @if (User.IsInRole("Therapist") == true)
 {
     <p>
-        @Html.ActionLink("Massage Completed", "Index", "Documents", new { id = Model.Id, complete = true }, "") |
+        @Html.ActionLink("Massage Completed", "CompleteAppt", "MassageTherapists", new { id = Model.Id, complete = false }, "") |
         @Html.ActionLink("Cancel Appointment", "Delete", new { id = Model.Id})
     </p>
-    if (ViewBag.IsCompleted != null)
-    {
-       { Html.RenderAction("Index", "Documents", new { id = Model.Id }); }
-    }
 }
 @if (User.IsInRole("Client") == true)
 {
     <p>
         @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
         @Html.ActionLink("Search Massage Therapist", "Index", "MassageTherapists", new { id = Model.Id }, "") |
-        @Html.ActionLink("Back to List", "Index")
+
     </p>
 
 }

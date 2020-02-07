@@ -68,7 +68,14 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Specialty, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Specialty, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.DropDownListFor(model => model.Specialty, new List<SelectListItem>{
+            new SelectListItem{Text = "Swedish", Value = "Swedish" },
+            new SelectListItem{Text = "Reflecology", Value = "Reflexology" },
+            new SelectListItem{Text = "Prenatal", Value = "Prenatal" },
+            new SelectListItem{Text = "Neuromuscular", Value = "Neuromuscular" },
+            new SelectListItem{Text = "Craniosacral", Value = "Craniosacral" },
+            new SelectListItem{Text = "Deep Tissue", Value = "Deep Tissue" } }, "--Choose Specialty--",
+            new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Specialty, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -76,14 +83,24 @@
     <div class="form-group">
         @Html.LabelFor(model => model.TimeFramePref, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.TimeFramePref, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.DropDownListFor(model => model.TimeFramePref, new List<SelectListItem>
+                {
+                new SelectListItem{Text = "Morning", Value = "Morning" },
+                new SelectListItem{Text = "Afternoon", Value = "Afternoon" },
+                new SelectListItem{Text = "Evening", Value = "Evening" } },
+              new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.TimeFramePref, "", new { @class = "text-danger" })
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(model => model.SessionPerDay, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.SessionPerDay, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.DropDownListFor(model => model.SessionPerDay, new List<SelectListItem>{
+           new SelectListItem{Text = "1", Value = "1" },
+           new SelectListItem{Text = "2", Value = "2" },
+           new SelectListItem{Text = "3", Value = "3" },
+           new SelectListItem{Text = "4", Value = "4" } },
+           new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.SessionPerDay, "", new { @class = "text-danger" })
         </div>
     </div>
