@@ -4,13 +4,10 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Appointments</h2>
+<h2 style="margin-top:150px" align="center">Appointments</h2>
 
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ApplicationUser.Email)
-        </th>
         <th>
             @Html.DisplayNameFor(model => model.FirstName)
         </th>
@@ -35,9 +32,7 @@
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ApplicationUser.Email)
-        </td>
+
         <td>
             @Html.DisplayFor(modelItem => item.FirstName)
         </td>
@@ -57,7 +52,6 @@
             @Html.DisplayFor(modelItem => item.Zip)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Details", "Details", new { id=item.Id }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.Id })
         </td>

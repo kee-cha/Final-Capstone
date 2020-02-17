@@ -4,82 +4,131 @@
     ViewBag.Title = "Details";
 }
 
-<h2>
+<h2 align="center" style="margin-top:150px">
     @Model.FirstName's Profile
 </h2>
+<div class="container">
+    <div class="row">
 
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ApplicationUser.Email)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ApplicationUser.Email)
-        </dd>
+        <div class="col-md-6" style="margin-top:100px">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.ApplicationUser.Email)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ApplicationUser.Email)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.FirstName)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.LastName)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Street)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.LastName)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Street)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Street)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.City)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Street)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.City)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.City)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.State)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.City)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.State)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.State)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Zip)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.State)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Zip)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Zip)
+                </dt>
 
-    </dl>
+                <dd>
+                    @Html.DisplayFor(model => model.Zip)
+                </dd>
+            </dl>
+        </div>
+        <div id="map" class="col-md-6" style="width:50%; height:300px; margin-top:45px"></div>
+    </div>
 </div>
 
-<div>
-    <p>
-        @{Html.RenderAction("Details", "ClientPrefs", new { id = Model.Id }); }
-    </p>
-</div>
+<p>
+    @{Html.RenderAction("Details", "ClientPrefs", new { id = Model.Id }); }
+</p>
+
 @if (User.IsInRole("Therapist") == true)
 {
     <div>
         @{ Html.RenderAction("Index", "Documents", new { id = Model.Id }); }
     </div>
-
 }
+<script>
+            function initMap() {
+            var pointA = new google.maps.LatLng(@ViewBag.MTLat, @ViewBag.MTLng),
+                pointB = new google.maps.LatLng(@Model.Latitude, @Model.Longitude),
+                myOptions = {
+                    zoom: 10,
+                    center: pointA
+                },
+                map = new google.maps.Map(document.getElementById('map'), myOptions),
+                // Instantiate a directions service.
+                directionsService = new google.maps.DirectionsService,
+                directionsDisplay = new google.maps.DirectionsRenderer({
+                    map: map
+                }),
+                markerA = new google.maps.Marker({
+                    position: pointA,
+                    title: "point A",
+                    label: "A",
+                    map: map
+                }),
+                markerB = new google.maps.Marker({
+                    position: pointB,
+                    title: "point B",
+                    label: "B",
+                    map: map
+                });
 
+            // get route from A to B
+            calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, pointB);
+
+        }
+            function calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, pointB) {
+                directionsService.route({
+                    origin: pointA,
+                    destination: pointB,
+                    avoidTolls: true,
+                    avoidHighways: false,
+                    travelMode: google.maps.TravelMode.DRIVING
+                }, function (response, status) {
+                    if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                    } else {
+                    window.alert('Directions request failed due to ' + status);
+                }
+            });
+        }
+</script>
+<script async defer src=@ViewBag.Map></script>

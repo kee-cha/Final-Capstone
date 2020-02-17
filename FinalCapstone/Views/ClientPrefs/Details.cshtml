@@ -1,13 +1,14 @@
 ﻿@model FinalCapstone.Models.ClientPref
+@*@model FinalCapstone.Models.Client*@
 
 @{
     ViewBag.Title = "Details";
+    if (User.IsInRole("Therapist") == true)
+    {
+        Layout = "";
+    }
 }
-
-
 <div class="container">
-
-    <hr />
     <dl class="dl-horizontal">
 
         <dt>
@@ -45,6 +46,7 @@
                 @Html.DisplayFor(model => model.AppointmentTime)
             </dd>
         }
+        <br />
         <div class="row">
             <div class="col-md-6" align="center">
                 <h4>Problem Areas</h4>
@@ -146,11 +148,11 @@
         </div>
     </dl>
 </div>
-@if (User.IsInRole("Therapist") == true)
+@if (User.IsInRole("Therapist") == true && ViewBag.IsComplete == null)
 {
     <p>
         @Html.ActionLink("Massage Completed", "CompleteAppt", "MassageTherapists", new { id = Model.Id, complete = false }, "") |
-        @Html.ActionLink("Cancel Appointment", "Delete", new { id = Model.Id})
+        @Html.ActionLink("Cancel Appointment", "Delete", new { id = Model.Id })
     </p>
 }
 @if (User.IsInRole("Client") == true)

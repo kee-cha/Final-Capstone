@@ -3,154 +3,174 @@
 @{
     ViewBag.Title = "Details";
 }
-<h3>@Model.FirstName's Profile</h3>
-<div>
+<h3 style="margin-top:150px" align="center">@Model.FirstName's Profile</h3>
+<br />
+<style>
+    .fa 
+    {
+        font-size: 20px;
+        cursor: pointer;
+        user-select: none;
+    }
+    .fa:hover 
+    {
+        color: darkblue;
+    }
+</style>
 
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ApplicationUser.Email)
-        </dt>
+<span onclick="Like(@Model.Id)" class="fa fa-thumbs-up" id="up">Like</span>
+<span onclick="DisLike(@Model.Id)" class="fa fa-thumbs-down" id="down">Dislike</span>
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.ApplicationUser.Email)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ApplicationUser.Email)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.ApplicationUser.Email)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.FirstName)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.LastName)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.LastName)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Street)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Street)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Street)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Street)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.City)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.City)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.City)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.City)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.State)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.State)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.State)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.State)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Zip)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Zip)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Zip)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Zip)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Gender)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Gender)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Gender)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Gender)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Specialty)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Specialty)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Specialty)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.TimeFramePref)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Specialty)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.TimeFramePref)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.TimeFramePref)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.SessionPerDay)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.TimeFramePref)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.SessionPerDay)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.SessionPerDay)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.SessionPerDay)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Rating)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Rating)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Rating)
-        </dd>
-        @if (Model.Schedule1 != null)
-        {
-            <dt>
-                @Html.DisplayNameFor(model => model.Schedule1)
-            </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Rating)/10
+                </dd>
+                @if (Model.Schedule1 != null)
+                {
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Schedule1)
+                    </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Schedule1)
-            </dd>
-        }
-        @if (Model.Schedule2 != null)
-        {
-            <dt>
-                @Html.DisplayNameFor(model => model.Schedule2)
-            </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Schedule1)
+                    </dd>
+                }
+                @if (Model.Schedule2 != null)
+                {
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Schedule2)
+                    </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Schedule2)
-            </dd>
-        }
-        @if (Model.Schedule3 != null)
-        {
-            <dt>
-                @Html.DisplayNameFor(model => model.Schedule3)
-            </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Schedule2)
+                    </dd>
+                }
+                @if (Model.Schedule3 != null)
+                {
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Schedule3)
+                    </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Schedule3)
-            </dd>
-        }
-        @if (Model.Schedule4 != null)
-        {
-            <dt>
-                @Html.DisplayNameFor(model => model.Schedule4)
-            </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Schedule3)
+                    </dd>
+                }
+                @if (Model.Schedule4 != null)
+                {
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Schedule4)
+                    </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Schedule4)
-            </dd>
-        }
-
-    </dl>
+                    <dd>
+                        @Html.DisplayFor(model => model.Schedule4)
+                    </dd>
+                }
+            </dl>
+        </div>
+        <div id="map" class="col-md-6" style="width:50%; height:300px; margin-top:45px"></div>
+    </div>
 </div>
 @if (User.IsInRole("Therapist") == true)
 {
-    <p>
-        @Html.ActionLink("Edit Profile", "Edit", new { id = Model.Id }) |
-        @Html.ActionLink("Set Availibility", "SetSchedule", new { id = Model.Id }) |
-        @Html.ActionLink("Delete Profile", "Delete", new { id = Model.Id })
-    </p>
+<p>
+    @Html.ActionLink("Edit Profile", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Set Availibility", "SetSchedule", new { id = Model.Id }) |
+    @Html.ActionLink("Delete Profile", "Delete", new { id = Model.Id }) |
+    @Html.ActionLink("Read Reviews", "Index", "Reviews", new { id = Model.Id }, "")
+</p>
 
 }
 @if (User.IsInRole("Client") == true)
@@ -158,10 +178,9 @@
     <p>
         @{Html.RenderAction("SetDate", new { id = Model.Id });}
     </p>
-    <br />
-    <br />
-    @*<div id="map"></div>
-            <script>
+
+}
+<script>
             function initMap() {
             var pointA = new google.maps.LatLng(@ViewBag.ClientLat, @ViewBag.ClientLng),
                 pointB = new google.maps.LatLng(@Model.Latitude, @Model.Longitude),
@@ -206,8 +225,52 @@
                     window.alert('Directions request failed due to ' + status);
                 }
             });
-        }
-            </script>
-            <script async defer src=@ViewBag.Map></script>*@
+    }
 
-}
+    function Like(x)
+    {
+        if (document.getElementById("up").style.color == "blue")
+        {
+            document.getElementById("up").style.color = "black";
+            var mt = {
+                Id: x,
+                unlike: "UnLike",
+                _RequestVerificationToken: $('input[name = _RequestVerificationToken]').val()
+            }
+        }
+        else
+        {
+            document.getElementById("up").style.color = "blue";
+            var mt = {
+                Id: x,
+                unlike: "Like",
+                _RequestVerificationToken: $('input[name = _RequestVerificationToken]').val()
+            }
+        }
+        $.post("/MassageTherapists/Rating", mt, function (data, status, jqXHR) {}, "json")
+    }
+    function DisLike(x)
+    {
+        if (document.getElementById("down").style.color == "blue")
+        {
+            document.getElementById("down").style.color = "black";
+            var mt = {
+                Id: x,
+                unlike: "UnDisLike",
+                _RequestVerificationToken: $('input[name = _RequestVerificationToken]').val()
+            }
+        }
+        else
+        {
+            document.getElementById("down").style.color = "blue";
+            var mt = {
+                Id: x,
+                unlike: "DisLike",
+                _RequestVerificationToken: $('input[name = _RequestVerificationToken]').val()
+            }
+        }
+        $.post("/MassageTherapists/Rating", mt, function (data, status, jqXHR) {}, "json")
+    }
+
+</script>
+<script async defer src=@ViewBag.Map></script>

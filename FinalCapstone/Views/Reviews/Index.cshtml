@@ -4,11 +4,15 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+@if (User.IsInRole("Client")==true)
+{
+    <h2 style="margin-top:150px">Leave A Review</h2>
+}
+@if (User.IsInRole("Therapist")==true)
+{
+    <h2 style="margin-top:150px">Massage Reviews</h2>
+}
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <div class="container">
     <div class="row">
         <table class="table">

@@ -3,18 +3,14 @@
 @{
     ViewBag.Title = "Index";
 }
-
+@{ 
+    Layout = null;
+}
 <h2>SOAP Notes</h2>
 
 
 <table class="table">
     <tr>
-        <th class="col-md-1">
-            @Html.DisplayNameFor(model => model.Client.FirstName)
-        </th>
-        <th class="col-md-1">
-            @Html.DisplayNameFor(model => model.Client.LastName)
-        </th>
         <th>
             @Html.DisplayNameFor(model => model.Subjective)
         </th>
@@ -33,12 +29,7 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Client.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Client.LastName)
-            </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.Subjective)
             </td>

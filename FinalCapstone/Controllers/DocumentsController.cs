@@ -23,11 +23,9 @@ namespace FinalCapstone.Controllers
         // GET: Documents
         public ActionResult Index(int? id, bool? complete )
         {
-            ViewBag.ClientId = id;
-          
+            ViewBag.ClientId = id;          
             ViewBag.IsComplete = complete;
-
-            var documents = db.Documents.Include(d => d.Client);
+            var documents = db.Documents.Include(d => d.Client).Where(d => d.ClientId == id);
             return View(documents.ToList());
         }
         [HttpPost]
@@ -54,7 +52,7 @@ namespace FinalCapstone.Controllers
                     db.SaveChanges();
                 }
 
-                return RedirectToAction("Index", new { id = document.ClientId });
+                return RedirectToAction("Details", "Clients", new { id = document.ClientId });
             }
             return View(document);
         }
@@ -95,8 +93,7 @@ namespace FinalCapstone.Controllers
                 document.Id = 0;
                 db.Documents.Add(document);
                 db.SaveChanges();
-
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Clients", new { id = document.ClientId, complete = false });
             }
 
             ViewBag.ClientId = new SelectList(db.Clients, "Id", "FirstName", document.ClientId);
@@ -134,7 +131,7 @@ namespace FinalCapstone.Controllers
                 soap.Assessment = document.Assessment;
                 soap.Plan = document.Plan;
                 db.SaveChanges();
-                return RedirectToAction("Index", new { id = document.ClientId });
+                return RedirectToAction("Details", "Clients", new { id = document.ClientId, complete = false });
             }
             ViewBag.ClientId = new SelectList(db.Clients, "Id", "FirstName", document.ClientId);
             return View("Details",document);
@@ -153,19 +150,11 @@ namespace FinalCapstone.Controllers
             {
                 return HttpNotFound();
             }
-            return View(document);
-        }
-
-        // POST: Documents/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Document document = db.Documents.Find(id);
             db.Documents.Remove(document);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "Clients", new { id = document.ClientId, complete = false });
         }
+
 
         protected override void Dispose(bool disposing)
         {

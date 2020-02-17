@@ -29,11 +29,11 @@ namespace FinalCapstone.Controllers
         }
 
         // GET: ClientPrefs/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id, bool? complete)
         {
 
             var thisClient = db.Clients.Include(c => c.ApplicationUser).Where(c => c.ApplicationId == userId).SingleOrDefault();
-            
+            ViewBag.IsComplete = complete;
             if (thisClient == null)
             {
                 thisClient = db.Clients.Include(c => c.ApplicationUser).Where(c => c.Id == id).Single();

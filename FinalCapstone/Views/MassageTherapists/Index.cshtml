@@ -3,8 +3,9 @@
 @{
     ViewBag.Title = "Index";
 }
-
-<h2 align="center">Massage Therapist</h2>
+<br />
+<br />
+<h2 align="center" style="margin-top:100px ">Massage Therapist</h2>
 
 @using (Html.BeginForm())
 {
@@ -13,30 +14,27 @@
         <div class="form-horizontal">
             <div class="row">
                 <div class="btn-group-vertical">
+                    <h3>Filter By</h3>
                     <div class="col-md-8">
-                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                            Filter
-                        </button>
-                        <div class="dropdown-menu">
-                            <h5 class="dropdown-header">Filter</h5>
+
+                        <dropdown typeof="dropdown-menu">
                             <div class="dropdown-divider"></div>
                             @Html.CheckBox("location", false)<text>Location</text>
                             <div class="dropdown-divider"></div>
                             @Html.CheckBox("interest", false)<text>Interest</text>
-                            <div class="dropdown-divider"></div>
-                            <h5 class="dropdown-header">Time Frame</h5>
+
                             <div class="dropdown-divider"></div>
                             @Html.CheckBox("Morning", false)<text>Morning</text>
                             <div class="dropdown-divider"></div>
                             @Html.CheckBox("Afternoon", false)<text>Afternoon</text>
-                            <div class="dropdown-divider"></div>
+
                             <div class="dropdown-divider"></div>
                             @Html.CheckBox("Evening", false)<text>Eveniing</text>
                             <div class="dropdown-divider"></div>
-                        </div>
+                        </dropdown>
                     </div>
                     <div class="col-md-2">
-                        <div class="form-group">
+                        <div class="form-group" style="border:solid; border:5px; border-color:black">
                             <input type="submit" value="Save" class="btn btn-default" />
                         </div>
                     </div>
@@ -45,7 +43,8 @@
         </div>
     </div>
 }
-
+<br />
+<br />.
 
 
 <table class="table">
@@ -114,12 +113,11 @@
                 @Html.DisplayFor(modelItem => item.Specialty)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Rating)
+                @Html.DisplayFor(modelItem => item.Rating)/10
             </td>
             <td>
                 @Html.ActionLink("Reviews", "Index", "Reviews", new { id = item.Id }, "") |
                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>
         </tr>
     }

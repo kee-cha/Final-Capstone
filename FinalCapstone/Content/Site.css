@@ -23,6 +23,8 @@ textarea {
     max-width: 280px;
 }
 #map {
-    height: 400px;
+    height: 300px;
     width: 50%;
+   margin-top: 45px;
 }
+

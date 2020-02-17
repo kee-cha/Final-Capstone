@@ -3,51 +3,516 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>Healing Hands</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="webthemez">
+    <!-- core CSS -->
+    <link href=@Url.Content("/Content/css/bootstrap.min.css") rel="stylesheet">
+    <link href=@Url.Content("/Content/css/font-awesome.min.css") rel="stylesheet">
+    <link href=@Url.Content("/Content/css/animate.min.css") rel="stylesheet">
+    <link href=@Url.Content("/Content/css/prettyPhoto.css") rel="stylesheet">
+    <link href=@Url.Content("/Content/css/styles.css") rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <link rel="shortcut icon" href=@Url.Content("/Content/images/ico/favicon.ico")>
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Healing Hands", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    @if (User.IsInRole("Client") == true)
-                    {
-                        <li>@Html.ActionLink("Profile", "Details", "Clients")</li>
-                        <li>@Html.ActionLink("See All Massage Therapists", "Index", "MassageTherapists")</li>
-                        <li>@Html.ActionLink("My Appointments", "MassageAppt", "MassageTherapists")</li>
-                        <li>@Html.ActionLink("Injury List", "GetInjuryInfo", "Clients")</li>
-                    }
-                    @if (User.IsInRole("Therapist") == true)
-                    {
-                        <li>@Html.ActionLink("Profile", "Details", "MassageTherapists")</li>
-                        <li>@Html.ActionLink("Appointments", "Index", "Clients")</li>
-                    }
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
-        </div>
-    </div>
+<body id="home">
+    <header id="header">
+        <nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="banner">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <span class="navbar-brand">
+                        <img src="~/Content/images/Healing-Hands-Small.jpg" alt="logo" >
+                    </span>
+                </div>
+
+                <div class="collapse navbar-collapse navbar-right">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+
+                        @if (User.IsInRole("Client") == true)
+                        {
+                            <li>@Html.ActionLink("Profile", "Details", "Clients")</li>
+                            <li>@Html.ActionLink("See All Massage Therapists", "Index", "MassageTherapists")</li>
+                            <li>@Html.ActionLink("My Appointments", "MassageAppt", "MassageTherapists")</li>
+                            <li>@Html.ActionLink("Injury List", "GetInjuryInfo", "Clients")</li>
+                        }
+                        @if (User.IsInRole("Therapist") == true)
+                        {
+                            <li>@Html.ActionLink("Profile", "Details", "MassageTherapists")</li>
+                            <li>@Html.ActionLink("Appointments", "Index", "Clients")</li>
+                        }
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div><!--/.container-->
+        </nav><!--/nav-->
+    </header><!--/header-->
     <div class="container body-content">
         @RenderBody()
-        <hr />
-    </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    </div>
+    <section id="hero-banner">
+        <div class="banner-inner">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12" style="margin-top:220px">
+                        <h2><b>Healing begins with ONE TOUCH</b></h2>
+                        <p> <br /> </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!--/#main-slider-->
+
+    <section id="services">
+        <div class="container">
+
+            <div class="section-header">
+                <h2 class="section-title wow fadeInDown">Whats Best For You</h2>
+                <p class="wow fadeInDown"> <br> </p>
+            </div>
+
+            <div class="row">
+                <div class="features">
+                    <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-duration="300ms" data-wow-delay="0ms">
+                        <div class="media service-box">
+                            <div class="pull-left">
+                                <i class="fa fa-futbol-o"></i>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">Swedish Massage</h4>
+                                <p>The most common type of massage is Swedish massage therapy. It involves soft, long, kneading strokes, as well as light, rhythmic, tapping strokes, on topmost layers of muscles.</p>
+                            </div>
+                        </div>
+                    </div><!--/.col-md-4-->
+
+                    <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-duration="300ms" data-wow-delay="200ms">
+                        <div class="media service-box">
+                            <div class="pull-left">
+                                <i class="fa fa-compass"></i>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">Reflexology Massage</h4>
+                                <p>
+                                    This is a kind of therapy explicitly focusing on reflex points. Ancient Chinese believed that you could treat any body part by working on these areas on both hands and feet.
+                                </p>
+                            </div>
+                        </div>
+                    </div><!--/.col-md-4-->
+
+                    <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-duration="300ms" data-wow-delay="400ms">
+                        <div class="media service-box">
+                            <div class="pull-left">
+                                <i class="fa fa-database"></i>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">Pre-Natal</h4>
+                                <p>
+                                    Pregnancy massage is a catch-all term for any hands-on massage during or after pregnancy (prenatal or postnatal massage). A pregnancy massage typically lasts an hour. Some practitioners use a pregnancy massage table.
+                                </p>
+                            </div>
+                        </div>
+                    </div><!--/.col-md-4-->
+
+                    <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-duration="300ms" data-wow-delay="600ms">
+                        <div class="media service-box">
+                            <div class="pull-left">
+                                <i class="fa fa-bar-chart"></i>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">Craniosacral</h4>
+                                <p>
+                                    Craniosacral massage is a type of massage that focuses on the bones and tissues of the central nervous system, including the skull, spine, and pelvis. In it’s most simple form, it is meant to allow “self-healing,” in that it taps into the body’s natural rhythms to promote healing from within.
+                                </p>
+                            </div>
+                        </div>
+                    </div><!--/.col-md-4-->
+
+                    <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-duration="300ms" data-wow-delay="800ms">
+                        <div class="media service-box">
+                            <div class="pull-left">
+                                <i class="fa fa-paper-plane-o"></i>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">Neuromuscular</h4>
+                                <p>Neuromuscular massage therapy is a specialized form of manual massage in which digital pressure and friction are used to release areas of strain in a muscle. Strain areas are called tender or trigger points, and they tend to be the cause of ongoing muscular pain symptoms.</p>
+                            </div>
+                        </div>
+                    </div><!--/.col-md-4-->
+
+                    <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-duration="300ms" data-wow-delay="1000ms">
+                        <div class="media service-box">
+                            <div class="pull-left">
+                                <i class="fa fa-bullseye"></i>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">Deep Tissue</h4>
+                                <p>Deep tissue massage is best for giving attention to certain painful, stiff "trouble spots" in your body. The massage therapist uses slow, deliberate strokes that focus pressure on layers of muscles, tendons, or other tissues deep under your skin.</p>
+                            </div>
+                        </div>
+                    </div><!--/.col-md-4-->
+                </div>
+            </div><!--/.row-->
+        </div><!--/.container-->
+    </section><!--/#services-->
+
+
+    <section id="about">
+        <div class="container">
+
+            <div class="section-header">
+                <h2 class="section-title wow fadeInDown">Who we are</h2>
+                <p class="wow fadeInDown">Established in 2020 in Milwaukee, Wisconson; Healing Hands was developed to assist clients in helping them be informed on possible massage treatments for specific injuries to making appointments with a specific massage therapist. Getting massages can get expensive especially when following a routine treatment plan so as a client, getting the most for the price is an important factor.  The Healing Hands application eases the process of finding a therapist, making an appointment and keeping documentation in the client's profile.   </p>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 wow fadeInLeft" align="center">
+                    <img class="img-responsive" src="~/Content/images/about_1.jpg" alt="" style=" height: 400px">
+                </div>
+
+                <div class="col-md-6 wow fadeInRight">
+                    <h3 class="column-title">Our Beauty Studio</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget risus vitae massa semper aliquam quis mattis quam. Morbi vitae tortor tempus, placerat leo et, suscipit lectus. Phasellus ut euismod massa, eu eleifend ipsum.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget risus vitae massa semper aliquam quis mattis quam adipiscing elit. Praesent eget risus vitae massa.</p>
+                    <ul class="listarrow">
+                        <li><i class="fa fa-angle-double-right"></i>Swedish Massage</li>
+                        <li><i class="fa fa-angle-double-right"></i>Reflexology</li>
+                        <li><i class="fa fa-angle-double-right"></i>Pre-Natal</li>
+                        <li><i class="fa fa-angle-double-right"></i>Craniosacral</li>
+                        <li><i class="fa fa-angle-double-right"></i>Neuromuscular</li>
+                        <li><i class="fa fa-angle-double-right"></i>Deep Tissue</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section><!--/#about-->
+
+    <section id="our-team">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title wow fadeInDown">
+                    OUR TEAM
+                </h2>
+                <p class="wow fadeInDown">Meet the founder of Healing Hands.</p>
+            </div>
+
+
+            <div class="row text-center" >
+                <div align="center">
+                    <div class="team-member wow fadeInUp" data-wow-duration="400ms" data-wow-delay="0ms">
+                        <div class="team-img">
+                            <img class="img-responsive" src="~/Content/images/kee.JPG" style="height:400px" alt="">
+                        </div>
+                        <div class="team-info">
+                            <h3>Kee Cha</h3>
+                            <span>Founder</span>
+                        </div>
+                        <ul class="social-icons">
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+
+        </div>
+    </section><!--/#our-team-->
+
+    <section id="portfolio">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title wow fadeInDown">Gallery</h2>
+                <p class="wow fadeInDown"> <br></p>
+            </div>
+
+            <div class="text-center">
+                <ul class="portfolio-filter" style="display:none">
+                    <li><a class="active" href="#" data-filter="*">All Works</a></li>
+                    <li><a href="#" data-filter=".designing">Aroma</a></li>
+                    <li><a href="#" data-filter=".mobile">Manicure</a></li>
+                    <li><a href="#" data-filter=".development">Body Spa</a></li>
+                </ul><!--/#portfolio-filter-->
+            </div>
+
+            <div class="portfolio-items">
+                <div class="portfolio-item designing">
+                    <div class="portfolio-item-inner">
+                        <img class="img-responsive" src="~/Content/images/reflexology.jpg" height="100" alt="">
+                        <div class="portfolio-info">
+                            <a class="preview" href="~/Content/images/reflexology.jpg" rel="prettyPhoto"><i class="fa fa-eye"></i></a>
+                        </div>
+                    </div>
+                </div><!--/.portfolio-item-->
+
+                <div class="portfolio-item mobile development">
+                    <div class="portfolio-item-inner">
+                        <img class="img-responsive" src="~/Content/images/swedish.jpg" height="100" alt="">
+                        <div class="portfolio-info">
+                            <a class="preview" href="~/Content/images/swedish.jpg" rel="prettyPhoto"><i class="fa fa-eye"></i></a>
+                        </div>
+                    </div>
+                </div><!--/.portfolio-item-->
+
+                <div class="portfolio-item designing">
+                    <div class="portfolio-item-inner">
+                        <img class="img-responsive" src="~/Content/images/Sports-Massage-With-Elbow-e1440587522327.jpg" height="100" alt="">
+                        <div class="portfolio-info">
+                            <a class="preview" href="~/Content/images/Sports-Massage-With-Elbow-e1440587522327.jpg" rel="prettyPhoto"><i class="fa fa-eye"></i></a>
+                        </div>
+                    </div>
+                </div><!--/.portfolio-item-->
+
+                <div class="portfolio-item mobile">
+                    <div class="portfolio-item-inner">
+                        <img class="img-responsive" src="~/Content/images/cranio.png" height="100" alt="">
+                        <div class="portfolio-info">
+                            <a class="preview" href="~/Content/images/cranio.png" rel="prettyPhoto"><i class="fa fa-eye"></i></a>
+                        </div>
+                    </div>
+                </div><!--/.portfolio-item-->
+
+                <div class="portfolio-item designing development">
+                    <div class="portfolio-item-inner">
+                        <img class="img-responsive" src="~/Content/images/Technique_pregnancy_main.jpg" height="100" alt="">
+                        <div class="portfolio-info">
+                            <a class="preview" href="~/Content/images/Technique_pregnancy_main.jpg" rel="prettyPhoto"><i class="fa fa-eye"></i></a>
+                        </div>
+                    </div>
+                </div><!--/.portfolio-item-->
+
+                <div class="portfolio-item mobile">
+                    <div class="portfolio-item-inner">
+                        <img class="img-responsive" src="~/Content/images/Neuromuscular-Massage-Therapy.jpg" height="100" alt="">
+                        <div class="portfolio-info">
+                            <a class="preview" href="~/Content/images/Neuromuscular-Massage-Therapy.jpg" rel="prettyPhoto"><i class="fa fa-eye"></i></a>
+                        </div>
+                    </div>
+                </div><!--/.portfolio-item-->
+
+                <div class="portfolio-item designing development">
+                    <div class="portfolio-item-inner">
+                        <img class="img-responsive" src="~/Content/images/portfolio/07.jpg" height="100" alt="">
+                        <div class="portfolio-info">
+                            <a class="preview" href="~/Content/images/portfolio/07.jpg" rel="prettyPhoto"><i class="fa fa-eye"></i></a>
+                        </div>
+                    </div>
+                </div><!--/.portfolio-item-->
+
+                <div class="portfolio-item mobile">
+                    <div class="portfolio-item-inner" height="100">
+                        <img class="img-responsive" src="~/Content/images/portfolio/08.jpg" alt="">
+                        <div class="portfolio-info">
+                            <a class="preview" href="~/Content/images/portfolio/08.jpg" rel="prettyPhoto"><i class="fa fa-eye"></i></a>
+                        </div>
+                    </div>
+                </div><!--/.portfolio-item-->
+            </div>
+        </div><!--/.container-->
+    </section><!--/#portfolio-->
+
+    <section id="business-stats">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title wow fadeInDown">Healthy Report</h2>
+                <p class="wow fadeInDown">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget risus vitae massa <br> semper aliquam quis mattis quam.</p>
+            </div>
+
+            <div class="row text-center">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="wow fadeInUp" data-wow-duration="400ms" data-wow-delay="0ms">
+                        <div class="business-stats" data-digit="6850" data-duration="1000"></div>
+                        <strong>Clients</strong>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="wow fadeInUp" data-wow-duration="400ms" data-wow-delay="100ms">
+                        <div class="business-stats" data-digit="1465" data-duration="1000"></div>
+                        <strong>Trainer</strong>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="wow fadeInUp" data-wow-duration="400ms" data-wow-delay="200ms">
+                        <div class="business-stats" data-digit="4325" data-duration="1000"></div>
+                        <strong>Programs</strong>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="wow fadeInUp" data-wow-duration="400ms" data-wow-delay="300ms">
+                        <div class="business-stats" data-digit="2568" data-duration="1000"></div>
+                        <strong>Successes</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!--/#business-stats-->
+
+
+    <section class="testimonial-area" id="testimonial">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title wow fadeInDown">Testimonial</h2>
+                <p class="wow fadeInDown">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget risus vitae massa <br> semper aliquam quis mattis quam.</p>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="single-testimonial animate_fade_in" style="opacity: 1; right: 0px;">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <blockquote>Sontrary to popular belief, Lorem Ipsuis no simply random text. It has roots in a piece of classical Layears old. belief, Lorem Ipsuis not simply</blockquote>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <img src="~/Content/images/pic1.jpg" alt="client">
+                            </div>
+                            <div class="col-xs-9 half-gutter">
+                                <h5>John Bond</h5>
+                                <h6>Lorem Ipsuis simply</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="single-testimonial animate_fade_in" style="opacity: 1; right: 0px;">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <blockquote>Tontrary to popular belief, Lorem Ipsuis no simply random text. It has roots in a piece of classical Layears old. belief, Lorem Ipsuis not simply</blockquote>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <img src="~/Content/images/pic2.jpg" alt="client">
+                            </div>
+                            <div class="col-xs-9 half-gutter">
+                                <h5>John Bond</h5>
+                                <h6>Lorem Ipsuis simply</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="single-testimonial animate_fade_in" style="opacity: 1; right: 0px;">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <blockquote>Aontrary to popular belief, Lorem Ipsuis no simply random text. It has roots in a piece of classical Layears old. belief, Lorem Ipsuis not simply</blockquote>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <img src="~/Content/images/pic1.jpg" alt="client">
+                            </div>
+                            <div class="col-xs-9 half-gutter">
+                                <h5>John Bond</h5>
+                                <h6>Lorem Ipsuis simply</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="contact-us">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title wow fadeInDown">Contact Us</h2>
+                <p class="wow fadeInDown">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget risus vitae massa <br> semper aliquam quis mattis quam.</p>
+            </div>
+        </div>
+    </section><!--/#contact-us-->
+
+
+    <section id="contact">
+
+        <div class="container">
+            <div class="container contact-info">
+                <div class="row">
+                    <div class="col-sm-4 col-md-4">
+                        <div class="contact-form">
+                            <h3>Contact Info</h3>
+
+                            <address>
+                                <strong>Healing Hands, Inc.</strong><br>
+                                313 N Plankinton Ave Suite #209<br>
+                                Milwaukee, WI 53203<br>
+                                <abbr title="Phone">P:</abbr> (262) 933-7199
+                            </address>
+                        </div>
+                    </div>
+                    <div class="col-sm-8 col-md-8">
+                        <div class="contact-form">
+
+                            <form id="main-contact-form" name="contact-form" method="post" action="#">
+                                <div class="form-group">
+                                    <input type="text" name="name" class="form-control" placeholder="Name" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" name="email" class="form-control" placeholder="Email" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="subject" class="form-control" placeholder="Subject" required>
+                                </div>
+                                <div class="form-group">
+                                    <textarea name="message" class="form-control" rows="8" placeholder="Message" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Send Message</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!--/#bottom-->
+
+    <footer id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    &copy; 2020 devCodeCamp. Template by <a target="_blank" href="https://webthemez.com/" title="Free Bootstrap Themes">WebThemez.com</a>.<br /> Get More <a href="https://webthemez.com/free-bootstrap-templates/" title="Free Bootstrap Themes" target="_blank">Free Bootstrap Themes</a>
+                </div>
+                <div class="col-sm-6">
+                    <ul class="social-icons">
+                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+                        <li><a href="#"><i class="fa fa-github"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    </footer><!--/#footer-->
+
+    <script src=@Url.Content("/Content/js/jquery.js")></script>
+    <script src=@Url.Content("/Content/js/bootstrap.min.js")></script>
+    <script src=@Url.Content("/Content/js/mousescroll.js")></script>
+    <script src=@Url.Content("/Content/js/smoothscroll.js")></script>
+    <script src=@Url.Content("/Content/js/jquery.prettyPhoto.js")></script>
+    <script src=@Url.Content("/Content/js/jquery.isotope.min.js")></script>
+    <script src=@Url.Content("/Content/js/jquery.inview.min.js")></script>
+    <script src=@Url.Content("/Content/js/wow.min.js")></script>
+    <script src=@Url.Content("/Content/js/custom-scripts.js")></script>
 </body>
 </html>

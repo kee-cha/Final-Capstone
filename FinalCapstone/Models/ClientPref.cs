@@ -33,11 +33,11 @@ namespace FinalCapstone.Models
         public bool KneeLegPain { get; set; }
         [Display(Name = "Ankle/Foot")]
         public bool AnkleFootPain { get; set; }
-        [Display(Name = "Therapist Gender Preference")]
+        [Display(Name = "Gender Preference")]
         public string TherapistGender { get; set; }
-        [Display(Name = "Therapist Specialty Preference")]
+        [Display(Name = "Specialty Preference")]
         public string TherapistSpecialty { get; set; }
-        [Display(Name ="Time Frame Preference")]
+        [Display(Name ="Time Frame")]
         public string TimeFramePref { get; set; }
         [Display(Name ="Appointment Time")]
         public string AppointmentTime { get; set; }

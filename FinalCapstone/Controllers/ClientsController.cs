@@ -88,22 +88,27 @@ namespace FinalCapstone.Controllers
             Client client = null;
             ViewBag.IsTrue = isTrue;
             ViewBag.IsComplete = complete;
-
             if (id == null)
             {
+                var pref = db.ClientPrefs.Include(c => c.Client).Where(c => c.Id == id).FirstOrDefault();
                 client = db.Clients.Include(c => c.ApplicationUser).Where(c => c.ApplicationId == userId).SingleOrDefault();
-                var pref = db.ClientPrefs.Where(p => p.ClientId == client.Id).SingleOrDefault();
                 ViewBag.MyPref = pref;
             }
             else
             {
-                client = db.Clients.Find(id);
+                var therapist = db.MassageTherapists.Include(t => t.ApplicationUser).Where(t => t.ApplicationId == userId).SingleOrDefault();
+                client = db.Clients.Include(t => t.ApplicationUser).Where(c => c.Id == id).SingleOrDefault();
+                var pref = db.ClientPrefs.Where(p => p.ClientId == client.Id).SingleOrDefault();
+                ViewBag.MyPref = pref;
+                ViewBag.MTLat = therapist.Latitude;
+                ViewBag.MTLng = therapist.Longitude;
             }
 
             if (client == null)
             {
                 return HttpNotFound();
             }
+            ViewBag.Map = "https://maps.googleapis.com/maps/api/js?key=" + GoogleMapKey.myKey + "&callback=initMap";
             return View(client);
         }
 

@@ -28,7 +28,7 @@ namespace FinalCapstone.Controllers
         {
             ViewBag.IsTrue = isTrue;
             ViewBag.MtId = id;
-            var reviews = db.Reviews.Include(r => r.Client).Include(r => r.MassageTherapist).Include(r=>r.Client.ApplicationUser);
+            var reviews = db.Reviews.Include(r => r.Client).Include(r => r.MassageTherapist).Include(r=>r.Client.ApplicationUser).Where(r=>r.TherapistId == id).Select(r=>r);
 
             return View(reviews.ToList());
         }
@@ -42,7 +42,8 @@ namespace FinalCapstone.Controllers
                 if (therapist == null)
                 {
                     therapist = db.MassageTherapists.Include(t => t.ApplicationUser).Where(t => t.Id == therapistId).SingleOrDefault();
-                    var comment = db.Reviews.Include(c => c.Client.ApplicationUser).Where(c => c.Id == id).SingleOrDefault();
+
+                    var comment = db.Reviews.Include(c => c.Client.ApplicationUser).Where(c => c.Id == id && therapist.Id == therapistId).SingleOrDefault();
                     comment.Comment = review.Comment;
                     db.SaveChanges();                    
                 }
@@ -52,6 +53,7 @@ namespace FinalCapstone.Controllers
                     review.ClientId = client.Id;
                     db.Reviews.Add(review);
                     db.SaveChanges();
+                    
                 }
 
                 return RedirectToAction("Index", new { id = review.TherapistId });
