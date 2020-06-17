@@ -186,7 +186,7 @@ color: #FFFFFF;
   margin-bottom: 20px;
 }
 .navbar.navbar-default .navbar-brand {
-  height: auto;
+  height: 50px;
   padding: 10px 15px 1px;
 }
 .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus{
@@ -893,8 +893,8 @@ width: 100px;
 ********* Footer ******
 ************************/
 #footer {
-  padding-top: 30px;
-  padding-bottom: 30px;
+  padding-top: 25px;
+  padding-bottom: 25px;
   color: #fff;
   background: #3B8838;
 }

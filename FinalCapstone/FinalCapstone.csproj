@@ -238,9 +238,11 @@
     <Content Include="Content\fonts\icomoon\fonts\icomoon.svg" />
     <Content Include="Content\fonts\icomoon\Read Me.txt" />
     <Content Include="Content\fonts\icomoon\style.css" />
+    <Content Include="Content\images\1920_1080_20100518125124376105.jpg" />
     <Content Include="Content\images\about.png" />
     <Content Include="Content\images\about_1.jpg" />
     <Content Include="Content\images\about_2.jpg" />
+    <Content Include="Content\images\backdrop.jfif" />
     <Content Include="Content\images\banner-home.jpg" />
     <Content Include="Content\images\banner\banner.jpg" />
     <Content Include="Content\images\cranio.png" />
@@ -474,6 +476,8 @@
     <Content Include="Views\Reviews\Edit.cshtml" />
     <Content Include="Views\Reviews\Index.cshtml" />
     <Content Include="Views\Clients\Injury.cshtml" />
+    <Content Include="Views\Home\UserChoice.cshtml" />
+    <Content Include="Views\Shared\Nav.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -118,6 +118,7 @@ namespace FinalCapstone.Controllers
             }
 
             ViewBag.Map = "https://maps.googleapis.com/maps/api/js?key=" + GoogleMapKey.myKey + "&callback=initMap";
+
             return View(therapist);
         }
         [HttpPost]

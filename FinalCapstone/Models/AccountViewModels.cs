@@ -64,7 +64,6 @@ namespace FinalCapstone.Models
 
     public class RegisterViewModel
     {
-        [Required]
         [Display(Name = "User Roles")]
         public string UserRoles { get; set; }
 

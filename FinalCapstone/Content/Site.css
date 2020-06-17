@@ -3,6 +3,25 @@
     padding-bottom: 20px;
 }
 
+.stone {
+    position:relative;
+}
+.stone:before{
+    position:absolute;
+    background-size:cover;
+    opacity: .5;
+    background-image:url(images/1920_1080_20100518125124376105.jpg);
+    content:"";
+    z-index:1;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+}
+.content{
+    position:relative;
+    z-index:2
+}
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
@@ -27,4 +46,15 @@ textarea {
     width: 50%;
    margin-top: 45px;
 }
+
+
+.user {
+    border-radius: 25px;
+    box-shadow: 0 15px 15px 0 rgba(0, 0, 0, 0.2), 0 2px 15px 0 rgba(0, 0, 0, 0.19);
+    align-content: center;
+}
+.user:hover{
+    opacity:.5;
+}
+
 

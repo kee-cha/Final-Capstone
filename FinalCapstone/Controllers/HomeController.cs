@@ -13,6 +13,10 @@ namespace FinalCapstone.Controllers
             return View();
         }
 
+        public ActionResult UserChoice()
+        {
+            return View();
+        }
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

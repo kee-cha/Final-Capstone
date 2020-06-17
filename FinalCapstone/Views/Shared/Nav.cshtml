@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healing Hands</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="webthemez">
+    <!-- core CSS -->
+    <link href=@Url.Content("/Content/css/bootstrap.min.css") rel="stylesheet">
+    <link href=@Url.Content("/Content/css/font-awesome.min.css") rel="stylesheet">
+    <link href=@Url.Content("/Content/css/animate.min.css") rel="stylesheet">
+    <link href=@Url.Content("/Content/css/prettyPhoto.css") rel="stylesheet">
+    <link href=@Url.Content("/Content/css/styles.css") rel="stylesheet">
+    @*[if lt IE 9]>
+        <script src="js/html5shiv.js"></script>
+        <script src="js/respond.min.js"></script>
+        <![endif]*@
+    <link rel="shortcut icon" href=@Url.Content("/Content/images/ico/favicon.ico")>
+</head>
+<body>
+
+    <header id="header">
+        <nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="banner">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <span class="navbar-brand" >
+                        <img src="~/Content/images/Healing-Hands-Small.jpg" alt="logo" style="width:110px" align="left">
+                    </span>
+                </div>
+
+                <div class="collapse navbar-collapse navbar-right">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+
+                        @if (User.IsInRole("Client") == true)
+                        {
+                            <li>@Html.ActionLink("Profile", "Details", "Clients")</li>
+                            <li>@Html.ActionLink("See All Massage Therapists", "Index", "MassageTherapists")</li>
+                            <li>@Html.ActionLink("My Appointments", "MassageAppt", "MassageTherapists")</li>
+                            <li>@Html.ActionLink("Injury List", "GetInjuryInfo", "Clients")</li>
+                        }
+                        @if (User.IsInRole("Therapist") == true)
+                        {
+                            <li>@Html.ActionLink("Profile", "Details", "MassageTherapists")</li>
+                            <li>@Html.ActionLink("Appointments", "Index", "Clients")</li>
+                        }
+                    </ul>
+                </div>
+            </div><!--/.container-->
+        </nav><!--/nav-->
+    </header><!--/header-->
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+
+    <footer id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    &copy; 2020 devCodeCamp.
+                </div>
+                <div class="col-sm-6">
+                    <ul class="social-icons">
+                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+                        <li><a href="#"><i class="fa fa-github"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    </footer><!--/#footer-->
+
+    <script src=@Url.Content("/Content/js/jquery.js")></script>
+    <script src=@Url.Content("/Content/js/bootstrap.min.js")></script>
+    <script src=@Url.Content("/Content/js/mousescroll.js")></script>
+    <script src=@Url.Content("/Content/js/smoothscroll.js")></script>
+    <script src=@Url.Content("/Content/js/jquery.prettyPhoto.js")></script>
+    <script src=@Url.Content("/Content/js/jquery.isotope.min.js")></script>
+    <script src=@Url.Content("/Content/js/jquery.inview.min.js")></script>
+    <script src=@Url.Content("/Content/js/wow.min.js")></script>
+    <script src=@Url.Content("/Content/js/custom-scripts.js")></script>
+</body>
+</html>

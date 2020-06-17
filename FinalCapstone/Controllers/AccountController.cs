@@ -81,6 +81,16 @@ namespace FinalCapstone.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    var user = db.Users.Where(u => u.UserName == model.UserName).SingleOrDefault().Roles.SingleOrDefault();
+                    var role = db.Roles.Where(r => r.Id == user.RoleId).Select(r => r.Name).SingleOrDefault();
+                    if (role == "Client")
+                    {
+                        return RedirectToAction("GetInjuryInfo", "Clients");
+                    }
+                    if (role == "Therapist")
+                    {
+                        return RedirectToAction("FilterByToday", "MassageTherapists");
+                    }
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -139,10 +149,11 @@ namespace FinalCapstone.Controllers
         //
         // GET: /Account/Register    
         [AllowAnonymous]
-        public ActionResult Register()
+        public ActionResult Register(string user)
         {
             ViewBag.Name = new SelectList(db.Roles.Where(u => !u.Name.Contains("Admin"))
                                             .ToList(), "Name", "Name");
+            ViewBag.User = user;
             return View();
         }
 
@@ -151,10 +162,12 @@ namespace FinalCapstone.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model, string users)
         {
+            model.UserRoles = users;
             if (ModelState.IsValid)
             {
+                
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
